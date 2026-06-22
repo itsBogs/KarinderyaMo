@@ -4,8 +4,15 @@ An authentic Pinoy cuisine food delivery system built to streamline ordering, ri
 
 ## 📸 App Preview
 
-[DROP YOUR SCREENSHOT HERE - Delete this text after dropping your image file]
+![Front Page](https://github.com/itsBogs/KarinderyaMo/raw/2322bf39a91dc3856c2ab0c7bfb0acca0831d798/PhCuisineSys/front.jpg)
 
+![Access](https://github.com/itsBogs/KarinderyaMo/raw/2322bf39a91dc3856c2ab0c7bfb0acca0831d798/PhCuisineSys/access.jpg)
+
+![Admin](https://github.com/itsBogs/KarinderyaMo/raw/2322bf39a91dc3856c2ab0c7bfb0acca0831d798/PhCuisineSys/admin.jpg)
+
+![Customer](https://github.com/itsBogs/KarinderyaMo/raw/2322bf39a91dc3856c2ab0c7bfb0acca0831d798/PhCuisineSys/customer.jpg)
+
+![Rider](https://github.com/itsBogs/KarinderyaMo/raw/2322bf39a91dc3856c2ab0c7bfb0acca0831d798/PhCuisineSys/rider.jpg)
 ---
 
 ## 👥 System Roles & Features
