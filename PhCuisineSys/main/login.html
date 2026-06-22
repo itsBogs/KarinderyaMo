@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Login — Karinderya Mo</title>
+  <link rel="stylesheet" href="../css/design.css">
+  <link rel="stylesheet" href="../css/login.css">
+</head>
+<body class="login-body">
+  <div class="login-wrapper">
+    <div class="login-card">
+      <!-- Header -->
+      <div class="login-header">
+        <div class="logo-icon">🍲</div>
+        <h1 class="site-name">Karinderya Mo</h1>
+        <p class="header-subtitle site-desc">Food Delivery System</p>
+        <p class="header-text">Sign in to continue</p>
+      </div>
+
+      <!-- Error Message -->
+      <div id="error-message" class="alert alert-danger" style="display:none;"></div>
+
+      <!-- Role Selection -->
+      <div class="role-selector" style="display:flex; gap:10px; justify-content:center; flex-wrap:nowrap;">
+        <button class="role-btn active" data-role="customer" style="flex:1 1 0; min-width:100px; max-width:140px;">
+          <span class="role-icon">👤</span>
+          <span>Customer</span>
+        </button>
+        <button class="role-btn" data-role="admin" style="flex:1 1 0; min-width:100px; max-width:140px;">
+          <span class="role-icon">⚙️</span>
+          <span>Admin</span>
+        </button>
+        <button class="role-btn" data-role="owner" style="flex:1 1 0; min-width:100px; max-width:140px;">
+          <span class="role-icon">🏠</span>
+          <span>Owner</span>
+        </button>
+        <button class="role-btn" data-role="rider" style="flex:1 1 0; min-width:100px; max-width:140px;">
+          <span class="role-icon">🚴</span>
+          <span>Rider</span>
+        </button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form">
+        <div class="form-group" id="email-group">
+          <label id="email-label">Email</label>
+          <input type="text" id="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
+
+        <!-- Test Credentials Info -->
+        <div id="test-creds" style="display: none; margin: -8px 0 16px; padding: 10px 14px; background: #f8f9fa; border-left: 4px solid #667eea; border-radius: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px;">
+            <span style="font-size: 16px;">💡</span>
+            <span id="creds-label" style="font-weight: 600; color: #333; font-size: 13px;">Test Account:</span>
+          </div>
+          <div id="creds-text" style="font-family: 'Poppins', 'Segoe UI', Arial, sans-serif; color: #667eea; font-size: 13px; font-weight: 600; letter-spacing: 0.3px; margin-bottom: 6px;">
+            customer@karinderya.com / customer123
+          </div>
+          <div id="register-link" style="font-size: 11px; color: #888; font-style: italic;">
+            (or <a href="../register.php" style="color: #667eea; text-decoration: none;">Register your own</a>)
+          </div>
+        </div>
+
+        <button type="submit" class="login-btn">Sign In</button>
+      </form>
+
+      <!-- Footer Links -->
+      <div class="login-footer">
+        <p>Don't have an account? <a href="../register.php">Register here</a></p>
+        <a href="../index.php" class="back-link">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let selectedRole = 'customer';
+
+    const emailGroup = document.getElementById('email-group');
+    const emailInput = document.getElementById('email');
+    const emailLabel = document.getElementById('email-label');
+    const testCredsBox = document.getElementById('test-creds');
+    const credsText = document.getElementById('creds-text');
+    const credsLabel = document.getElementById('creds-label');
+    const registerLink = document.getElementById('register-link');
+
+    // Test credentials for all roles
+    const testCreds = {
+      customer: 'customer@karinderya.com / customer123',
+      rider: 'rider@karinderya.com / rider123',
+      admin: 'admin123',
+      owner: 'owner123'
+    };
+
+    // Role selection
+    document.querySelectorAll('.role-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        selectedRole = this.dataset.role;
+
+        // Update test credentials display
+        testCredsBox.style.display = 'block';
+        credsText.textContent = testCreds[selectedRole];
+        
+        // Update label and show/hide register link
+        if (selectedRole === 'customer' || selectedRole === 'rider') {
+          credsLabel.textContent = 'Test Account:';
+          registerLink.style.display = 'block';
+        } else {
+          credsLabel.textContent = 'Main Account:';
+          registerLink.style.display = 'none';
+        }
+
+        // Admin/Owner login: password-only (no email)
+        if (selectedRole === 'admin' || selectedRole === 'owner') {
+          emailGroup.style.display = 'none';
+          emailInput.required = false;
+          emailInput.value = '';
+          document.getElementById('password').placeholder = selectedRole === 'admin' ? 'Admin password' : 'Owner password';
+        } else {
+          emailGroup.style.display = '';
+          emailGroup.style.removeProperty('display');
+          emailInput.required = true;
+          emailLabel.textContent = 'Email';
+          document.getElementById('password').placeholder = 'Enter your password';
+        }
+      });
+    });
+
+    // Show test credentials on initial load (customer is default)
+    testCredsBox.style.display = 'block';
+
+    // Form submission
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errorMsg = document.getElementById('error-message');
+
+      if(selectedRole !== 'admin' && selectedRole !== 'owner' && (!email || !password)) {
+        errorMsg.textContent = 'Please fill in all fields.';
+        errorMsg.style.display = 'block';
+        return;
+      }
+      if((selectedRole === 'admin' || selectedRole === 'owner') && !password) {
+        errorMsg.textContent = 'Please enter the password.';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      // Show loading state
+      const submitBtn = document.querySelector('.login-btn');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = '⏳ Signing in...';
+      submitBtn.disabled = true;
+
+      try {
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('role', selectedRole);
+
+        const response = await fetch('login.php', {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          errorMsg.style.display = 'none';
+          errorMsg.textContent = result.message;
+          
+          // Redirect after brief delay
+          setTimeout(() => {
+            window.location.href = result.redirect;
+          }, 500);
+        } else {
+          errorMsg.textContent = result.message;
+          errorMsg.style.display = 'block';
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
+      } catch (error) {
+        errorMsg.textContent = '❌ Network error: ' + error.message;
+        errorMsg.style.display = 'block';
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+  <script>
+    // Apply site meta if available in other tabs
+    (function(){
+      function applySiteMeta(meta) {
+        if (!meta) return;
+        try {
+          const m = typeof meta === 'string' ? JSON.parse(meta) : meta;
+          if (m.site_name) {
+            document.querySelectorAll('.site-name').forEach(el => el.textContent = m.site_name);
+            document.title = (document.title.split('—')[0] || 'Login ') + '— ' + m.site_name;
+          }
+          if (m.site_description) {
+            document.querySelectorAll('.site-desc').forEach(el => el.textContent = m.site_description);
+          }
+        } catch(e){}
+      }
+      applySiteMeta(localStorage.getItem('site_meta'));
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'site_meta') applySiteMeta(e.newValue);
+      });
+    })();
+  </script>
+</body>
+</html>

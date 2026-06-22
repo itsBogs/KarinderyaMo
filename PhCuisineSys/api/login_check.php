@@ -1,0 +1,20 @@
+<?php
+// api/login_check.php - Verify if user is logged in (for AJAX calls)
+session_start();
+
+header('Content-Type: application/json');
+
+if (isset($_SESSION['user_id'])) {
+    echo json_encode([
+        'logged_in' => true,
+        'user_id' => $_SESSION['user_id'],
+        'user_name' => $_SESSION['user_name'],
+        'user_role' => $_SESSION['user_role'],
+        'user_email' => $_SESSION['user_email']
+    ]);
+} else {
+    echo json_encode([
+        'logged_in' => false
+    ]);
+}
+?>

@@ -1,0 +1,225 @@
+[2025-12-16 08:59:22] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:22] Order found: id=54 status=preparing rider_id=2
+[2025-12-16 08:59:22] Existing rider rating for order 54: false
+[2025-12-16 08:59:23] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:23] Order found: id=54 status=preparing rider_id=2
+[2025-12-16 08:59:23] Existing rider rating for order 54: false
+[2025-12-16 08:59:24] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:24] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:24] Existing rider rating for order 53: false
+[2025-12-16 08:59:25] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:25] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:25] Existing rider rating for order 53: false
+[2025-12-16 08:59:26] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:26] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:26] Existing rider rating for order 53: false
+[2025-12-16 08:59:27] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:27] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:27] Existing rider rating for order 53: false
+[2025-12-16 08:59:28] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:28] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:28] Existing rider rating for order 53: false
+[2025-12-16 08:59:29] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:29] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:29] Existing rider rating for order 53: false
+[2025-12-16 08:59:30] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:30] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:30] Existing rider rating for order 53: false
+[2025-12-16 08:59:31] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:31] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:31] Existing rider rating for order 53: false
+[2025-12-16 08:59:32] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:32] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:32] Existing rider rating for order 53: false
+[2025-12-16 08:59:33] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:33] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:33] Existing rider rating for order 53: false
+[2025-12-16 08:59:34] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:34] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:34] Existing rider rating for order 53: false
+[2025-12-16 08:59:35] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:35] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:35] Existing rider rating for order 53: false
+[2025-12-16 08:59:36] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:36] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:36] Existing rider rating for order 53: false
+[2025-12-16 08:59:37] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:37] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:37] Existing rider rating for order 53: false
+[2025-12-16 08:59:38] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:38] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:38] Existing rider rating for order 53: false
+[2025-12-16 08:59:39] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:39] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:39] Existing rider rating for order 53: false
+[2025-12-16 08:59:40] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:40] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:40] Existing rider rating for order 53: false
+[2025-12-16 08:59:41] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:41] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:41] Existing rider rating for order 53: false
+[2025-12-16 08:59:42] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:42] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:42] Existing rider rating for order 53: false
+[2025-12-16 08:59:43] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:43] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:43] Existing rider rating for order 53: false
+[2025-12-16 08:59:44] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:44] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:44] Existing rider rating for order 53: false
+[2025-12-16 08:59:45] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:45] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:45] Existing rider rating for order 53: false
+[2025-12-16 08:59:46] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:46] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:46] Existing rider rating for order 53: false
+[2025-12-16 08:59:47] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:47] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:47] Existing rider rating for order 53: false
+[2025-12-16 08:59:48] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:48] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:48] Existing rider rating for order 53: false
+[2025-12-16 08:59:49] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:49] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:49] Existing rider rating for order 53: false
+[2025-12-16 08:59:50] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:50] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:50] Existing rider rating for order 53: false
+[2025-12-16 08:59:51] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:51] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:51] Existing rider rating for order 53: false
+[2025-12-16 08:59:52] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:52] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:52] Existing rider rating for order 53: false
+[2025-12-16 08:59:53] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:53] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:53] Existing rider rating for order 53: false
+[2025-12-16 08:59:54] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:54] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:54] Existing rider rating for order 53: false
+[2025-12-16 08:59:55] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:55] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:55] Existing rider rating for order 53: false
+[2025-12-16 08:59:56] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:56] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:56] Existing rider rating for order 53: false
+[2025-12-16 08:59:57] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 08:59:57] Order found: id=53 status=approved rider_id=
+[2025-12-16 08:59:57] Existing rider rating for order 53: false
+[2025-12-16 09:00:08] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:08] Order found: id=53 status=approved rider_id=
+[2025-12-16 09:00:08] Existing rider rating for order 53: false
+[2025-12-16 09:00:09] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:09] Order found: id=53 status=approved rider_id=
+[2025-12-16 09:00:09] Existing rider rating for order 53: false
+[2025-12-16 09:00:10] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:10] Order found: id=53 status=approved rider_id=
+[2025-12-16 09:00:10] Existing rider rating for order 53: false
+[2025-12-16 09:00:11] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:11] Order found: id=53 status=approved rider_id=
+[2025-12-16 09:00:11] Existing rider rating for order 53: false
+[2025-12-16 09:00:12] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:12] Order found: id=53 status=approved rider_id=
+[2025-12-16 09:00:12] Existing rider rating for order 53: false
+[2025-12-16 09:00:13] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:13] Order found: id=53 status=approved rider_id=
+[2025-12-16 09:00:13] Existing rider rating for order 53: false
+[2025-12-16 09:00:15] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:15] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:15] Existing rider rating for order 52: false
+[2025-12-16 09:00:16] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:16] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:16] Existing rider rating for order 52: false
+[2025-12-16 09:00:17] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:17] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:17] Existing rider rating for order 52: false
+[2025-12-16 09:00:18] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:18] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:18] Existing rider rating for order 52: false
+[2025-12-16 09:00:19] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:19] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:19] Existing rider rating for order 52: false
+[2025-12-16 09:00:20] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:20] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:20] Existing rider rating for order 52: false
+[2025-12-16 09:00:21] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:21] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:21] Existing rider rating for order 52: false
+[2025-12-16 09:00:22] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:22] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:22] Existing rider rating for order 52: false
+[2025-12-16 09:00:23] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:23] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:23] Existing rider rating for order 52: false
+[2025-12-16 09:00:24] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:24] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:24] Existing rider rating for order 52: false
+[2025-12-16 09:00:25] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:25] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:25] Existing rider rating for order 52: false
+[2025-12-16 09:00:26] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:26] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:26] Existing rider rating for order 52: false
+[2025-12-16 09:00:27] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:27] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:27] Existing rider rating for order 52: false
+[2025-12-16 09:00:28] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:28] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:28] Existing rider rating for order 52: false
+[2025-12-16 09:00:29] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:29] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:29] Existing rider rating for order 52: false
+[2025-12-16 09:00:30] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:30] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:30] Existing rider rating for order 52: false
+[2025-12-16 09:00:31] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:31] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:31] Existing rider rating for order 52: false
+[2025-12-16 09:00:32] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:32] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:32] Existing rider rating for order 52: false
+[2025-12-16 09:00:33] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:33] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:33] Existing rider rating for order 52: false
+[2025-12-16 09:00:34] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:34] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:34] Existing rider rating for order 52: false
+[2025-12-16 09:00:35] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:35] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:35] Existing rider rating for order 52: false
+[2025-12-16 09:00:36] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:36] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:36] Existing rider rating for order 52: false
+[2025-12-16 09:00:37] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:37] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:37] Existing rider rating for order 52: false
+[2025-12-16 09:00:37] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:00:37] Order found: id=52 status=delivered rider_id=2
+[2025-12-16 09:00:37] Existing rider rating for order 52: false
+[2025-12-16 09:01:28] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:01:28] Order found: id=54 status=preparing rider_id=2
+[2025-12-16 09:01:28] Existing rider rating for order 54: false
+[2025-12-16 09:01:29] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:01:29] Order found: id=54 status=preparing rider_id=2
+[2025-12-16 09:01:29] Existing rider rating for order 54: false
+[2025-12-16 09:01:30] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:01:30] Order found: id=54 status=preparing rider_id=2
+[2025-12-16 09:01:30] Existing rider rating for order 54: false
+[2025-12-16 09:01:31] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:01:31] Order found: id=54 status=preparing rider_id=2
+[2025-12-16 09:01:31] Existing rider rating for order 54: false
+[2025-12-16 09:01:32] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:01:32] Order found: id=54 status=preparing rider_id=2
+[2025-12-16 09:01:32] Existing rider rating for order 54: false
+[2025-12-16 09:01:33] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:01:33] Order found: id=54 status=preparing rider_id=2
+[2025-12-16 09:01:33] Existing rider rating for order 54: false
+[2025-12-16 09:01:34] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:01:34] Order found: id=54 status=preparing rider_id=2
+[2025-12-16 09:01:34] Existing rider rating for order 54: false
+[2025-12-16 09:01:35] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:01:35] Order found: id=54 status=preparing rider_id=2
+[2025-12-16 09:01:35] Existing rider rating for order 54: false
+[2025-12-16 09:01:37] Called by IP=::1 Cookie={"PHPSESSID":"6s90l1r3uomjr6e6b8li80oin8"} Session={"user_id":"5","user_name":"jayson bogs","user_role":"customer","user_email":"jbogsramos@gmail.com","user_phone":"09513090683","user_address":"123tokyo\r\ntokyo japan"}
+[2025-12-16 09:01:37] Order found: id=47 status=delivered rider_id=2
+[2025-12-16 09:01:37] Existing rider rating for order 47: false
