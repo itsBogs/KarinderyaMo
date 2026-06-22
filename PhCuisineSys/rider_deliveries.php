@@ -1,5 +1,5 @@
 <?php
-// rider_deliveries.php - Deliveries list (Content Only) - Modified for Admin Panel Access
+
 require_once __DIR__ . '/db.php'; 
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -9,36 +9,36 @@ if (session_status() === PHP_SESSION_NONE) {
 $user_id = $_SESSION['user_id'] ?? null;
 $user_role = $_SESSION['user_role'] ?? 'customer';
 
-// Function to send JSON response and exit
+
 function sendJsonResponse($success, $message, $type = 'info') {
     header('Content-Type: application/json');
     echo json_encode(['success' => $success, 'message' => $message, 'type' => $type]);
     exit;
 }
 
-// Redirect non-authorized users (Now allows 'rider' and 'admin')
+
 if (!$user_id || ($user_role !== 'rider' && $user_role !== 'admin')) {
     http_response_code(401);
     sendJsonResponse(false, "Unauthorized Access.", 'danger'); 
 }
 
-// Determine if the current user is a rider or an admin
+
 $is_rider = ($user_role === 'rider');
-$rider_id = $is_rider ? $user_id : null; // Only set rider_id if the user is a rider
+$rider_id = $is_rider ? $user_id : null; 
 
 $message = '';
 $messageType = 'info';
 
-// Check if this is an AJAX request
+
 $is_ajax = isset($_POST['is_ajax']) && $_POST['is_ajax'] === 'true';
 
-// --- BEGIN: Handle status update (Only Riders or Admins can perform these actions) ---
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
     $order_id = $_POST['order_id'] ?? null;
     
-    // For accept/decline, we assume only an Admin can assign a rider, 
-    // or a Rider can accept an order assigned to them (as per original logic).
+
+
 
     try {
         $pdo = getPDO();
@@ -46,24 +46,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         
         if ($action === 'accept' && $order_id) {
             
-            // ADMIN SCENARIO: An Admin might 'accept' by assigning a specific rider (not implemented here)
-            // RIDER SCENARIO: A Rider accepts an unassigned order
+
+
             
             if ($is_rider) {
-                 // Original Rider Logic: check if order is still available (approved)
+
                 $checkStmt = $pdo->prepare('SELECT status, total_amount, shipping_fee FROM orders WHERE id = ?');
                 $checkStmt->execute([$order_id]);
                 $orderData = $checkStmt->fetch();
                 $current_status = $orderData['status'];
                 $total_amount = $orderData['total_amount'];
-                $shipping_fee = $orderData['shipping_fee'] ?? 58.00; // Get shipping fee
+                $shipping_fee = $orderData['shipping_fee'] ?? 58.00; 
 
                 if ($current_status === 'approved') {
-                    // 1. Update orders status to 'preparing', assign rider_id
+
                     $updateOrder = $pdo->prepare('UPDATE orders SET status = "preparing", rider_id = ? WHERE id = ?');
                     $updateOrder->execute([$rider_id, $order_id]);
                     
-                    // 2. Update deliveries table with rider and amount (shipping_fee only)
+
                     $updateDelivery = $pdo->prepare('UPDATE deliveries SET status = "accepted", rider_id = ?, amount = ? WHERE order_id = ?');
                     $updateDelivery->execute([$rider_id, $shipping_fee, $order_id]);
                     
@@ -81,12 +81,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
         } elseif ($action === 'decline' && $order_id) {
              if ($is_rider) {
-                // Original Rider Logic: 
-                // 1. Update order status back to 'approved', rider_id is NULL
+
+
                 $updateOrder = $pdo->prepare('UPDATE orders SET status = "approved", rider_id = NULL WHERE id = ?');
                 $updateOrder->execute([$order_id]);
                 
-                // 2. Update deliveries status to 'declined'
+
                 $updateDelivery = $pdo->prepare('UPDATE deliveries SET status = "declined", rider_id = NULL WHERE order_id = ?');
                 $updateDelivery->execute([$order_id]);
 
@@ -101,14 +101,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         } elseif ($action === 'update_status' && $order_id) {
             $new_status = $_POST['new_status'] ?? '';
             
-            // First, check if the order exists and get its current rider_id
+
             $checkOrderStmt = $pdo->prepare('SELECT id, status, rider_id FROM orders WHERE id = ?');
             $checkOrderStmt->execute([$order_id]);
             $orderInfo = $checkOrderStmt->fetch();
             
             error_log("Order check - order_id: $order_id, order_rider_id: " . ($orderInfo['rider_id'] ?? 'NULL') . ", session_user_id: $user_id");
             
-            // Check authorization: Rider can only update status for orders assigned to them.
+
             if ($is_rider && $orderInfo && intval($orderInfo['rider_id']) !== intval($user_id)) {
                 $message = "❌ Error: This order is not assigned to you. Order rider: {$orderInfo['rider_id']}, Your ID: $user_id";
                 $messageType = 'danger';
@@ -116,25 +116,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                     sendJsonResponse(false, $message, $messageType);
                 }
             } else {
-                // Proceed with the update
+
                 $updateOrder = $pdo->prepare("UPDATE orders SET status = ? WHERE id = ? AND status <> 'delivered'");
                 $updateOrder->execute([$new_status, $order_id]);
                 
                 $rowCount = $updateOrder->rowCount();
                 error_log("Update rowCount: $rowCount");
                 
-                // If the update was successful, proceed to delivery status
+
                 if ($rowCount > 0) { 
-                    // Update deliveries status to match new_status if delivered
+
                     if ($new_status === 'delivered') {
-                        // Get order shipping_fee to ensure delivery amount is set (in case it was 0)
+
                         $orderCheck = $pdo->prepare('SELECT total_amount, shipping_fee FROM orders WHERE id = ?');
                         $orderCheck->execute([$order_id]);
                         $orderData = $orderCheck->fetch();
                         $shipping_fee = $orderData['shipping_fee'] ?? 58.00;
                         
-                        // Update deliveries with status, amount (if still 0), and delivery timestamp
-                        // This ensures the rider gets credited even if they didn't formally "accept" first
+
+
                         $updateDelivery = $pdo->prepare('
                             UPDATE deliveries 
                             SET status = "delivered", 
@@ -166,10 +166,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                     $message = "❌ Error: Order not found or status already delivered.";
                     $messageType = 'danger';
                 }
-            } // end else (authorized)
+            } 
         }
         
-        // Send JSON response for AJAX requests
+
         if ($is_ajax) {
             sendJsonResponse($success, $message, $messageType);
         }
@@ -184,26 +184,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         }
     }
 }
-// --- END: Handle status update ---
 
 
-// --- BEGIN: Fetch deliveries ---
+
+
 $deliveries = [];
 if ($user_id) {
     try {
         $pdo = getPDO();
         
-        // Define the WHERE clause based on user role
+
         $whereClause = "WHERE o.status NOT IN ('delivered', 'cancelled')";
         $params = [];
 
         if ($is_rider) {
-            // Rider view: only show deliveries assigned to this rider
+
             $whereClause .= " AND o.rider_id = ?";
             $params[] = $rider_id;
             $title = '🚚 Active Assignments';
         } else {
-            // Admin view: show all active deliveries (currently 'approved' and unassigned)
+
             $whereClause .= " AND o.status IN ('approved', 'preparing', 'out_for_delivery')";
             $title = '📦 All Active Deliveries (Admin View)';
         }
@@ -217,7 +217,7 @@ if ($user_id) {
             FROM orders o
             LEFT JOIN deliveries d ON o.id = d.order_id
             JOIN users u ON o.customer_id = u.id
-            LEFT JOIN users r ON o.rider_id = r.id -- Join for rider name
+            LEFT JOIN users r ON o.rider_id = r.id
             {$whereClause}
             ORDER BY o.created_at DESC
         ");
@@ -228,12 +228,12 @@ if ($user_id) {
         $messageType = 'danger';
     }
 }
-// --- END: Fetch deliveries ---
+
 ?>
 
 <div class="container py-3">
   
-  <?php if (!empty($message) && !$is_ajax): // Only show alert if not AJAX request ?>
+  <?php if (!empty($message) && !$is_ajax): ?>
       <div class="alert alert-<?= $messageType ?> alert-dismissible fade show" role="alert">
           <?=htmlspecialchars($message)?>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -253,7 +253,7 @@ if ($user_id) {
           $order_status = $delivery['order_status'];
           $rider_name = $delivery['rider_name'] ?? 'Unassigned';
           
-          // Determine badge color
+
           $badge_color = 'secondary';
           if ($order_status === 'approved') $badge_color = 'warning';
           if ($order_status === 'preparing') $badge_color = 'info';
@@ -352,7 +352,7 @@ if ($user_id) {
   </div> </div>
 
 <script>
-// Function to show dynamic alerts
+
 function showAlert(message, type = 'info') {
     const placeholder = document.getElementById('alertPlaceholder');
     const alertHTML = `
@@ -362,7 +362,7 @@ function showAlert(message, type = 'info') {
         </div>
     `;
     placeholder.innerHTML = alertHTML;
-    // Auto-remove alert after 5 seconds
+
     setTimeout(() => {
         const alertElement = placeholder.querySelector('.alert');
         if (alertElement) {
@@ -371,7 +371,7 @@ function showAlert(message, type = 'info') {
     }, 5000);
 }
 
-// Map statuses to badge classes and readable labels
+
 const statusMeta = {
   approved:  { badge: 'warning',  label: 'Approved' },
   preparing: { badge: 'info',     label: 'Preparing' },
@@ -384,7 +384,7 @@ const statusMeta = {
 function removeDeliveryCard(orderId) {
   const card = document.querySelector(`.delivery-card[data-order-id="${orderId}"]`);
   if (card) {
-    card.parentElement?.remove(); // remove column wrapper
+    card.parentElement?.remove(); 
   }
   const list = document.getElementById('deliveriesList');
   if (list && list.children.length === 0) {
@@ -412,9 +412,9 @@ function applyCardStatus(orderId, status) {
   }
 }
 
-// Function to reload deliveries (now optimized for AJAX)
+
 function loadRiderDeliveries() {
-    // Note: We're keeping the name loadRiderDeliveries but it now loads for Admin/Rider
+
     fetch('rider_deliveries.php')
     .then(res => res.text())
     .then(html => {
@@ -427,10 +427,10 @@ function loadRiderDeliveries() {
              const scriptTag = doc.querySelector('script');
 
              if (contentDiv) {
-                 // Update the current mainContent's inner HTML with the content
+
                  let newContent = contentDiv.outerHTML;
                  if (scriptTag) {
-                     // Include the script tag to ensure JS functions are available
+
                      newContent += scriptTag.outerHTML;
                  }
                  mainContentDiv.innerHTML = newContent;
@@ -444,7 +444,7 @@ function loadRiderDeliveries() {
 
 
 
-// Accept or Decline action (Used by RIDER)
+
 function riderAction(action, orderId) {
   let confirmMsg = '';
   if (action === 'accept') confirmMsg = 'Accept this delivery?';
@@ -454,13 +454,13 @@ function riderAction(action, orderId) {
     const formData = new FormData();
     formData.append('action', action);
     formData.append('order_id', orderId);
-    formData.append('is_ajax', 'true'); // Tell PHP to return JSON message
+    formData.append('is_ajax', 'true'); 
 
     fetch('rider_deliveries.php', {
         method: 'POST',
         body: formData
     })
-    .then(res => res.json()) // Expect JSON response
+    .then(res => res.json()) 
     .then(data => {
         showAlert(data.message, data.type);
         if (data.success) {
@@ -478,12 +478,12 @@ function riderAction(action, orderId) {
   }
 }
 
-// Update status from dropdown (Used by RIDER)
+
 function updateRiderStatus(orderId) {
   const selectElement = document.getElementById('status_' + orderId);
   const newStatus = selectElement.value;
   
-  // Get current selected option text for confirmation
+
   const selectedText = selectElement.options[selectElement.selectedIndex].text;
   
     const btn = selectElement.nextElementSibling;
@@ -493,19 +493,19 @@ function updateRiderStatus(orderId) {
     formData.append('action', 'update_status');
     formData.append('order_id', orderId);
     formData.append('new_status', newStatus);
-    formData.append('is_ajax', 'true'); // Tell PHP to return JSON message
+    formData.append('is_ajax', 'true'); 
 
     fetch('rider_deliveries.php', {
       method: 'POST',
       body: formData
     })
-    .then(res => res.json()) // Expect JSON response
+    .then(res => res.json()) 
     .then(data => {
       showAlert(data.message, data.type);
       if (data.success) {
             applyCardStatus(orderId, newStatus);
             if (newStatus === 'delivered' || newStatus === 'cancelled') {
-              // Remove from list so rider no longer sees it in current deliveries
+
               setTimeout(() => removeDeliveryCard(orderId), 400);
             }
       }
@@ -519,7 +519,7 @@ function updateRiderStatus(orderId) {
     });
 }
 
-  // Upload delivery proof image
+
   function uploadProof(orderId) {
     const fileInput = document.getElementById('proof_' + orderId);
     const msg = document.getElementById('proof_msg_' + orderId);

@@ -1,7 +1,7 @@
 <?php
-// get_earnings.php
-// Returns JSON with labels and dataset arrays for the earnings chart.
-// Tries to read from `deliveries` table (if available), otherwise returns sample data.
+
+
+
 header('Content-Type: application/json');
 require_once __DIR__ . '/db.php';
 
@@ -12,7 +12,7 @@ $total = [];
 try{
     $pdo = getPDO();
 
-    // Build last 7 days labels (Mon..Sun) ending today
+
     $days = [];
     for($i = 6; $i >= 0; $i--){
         $d = new DateTime("-{$i} days");
@@ -20,7 +20,7 @@ try{
         $labels[] = $d->format('D');
     }
 
-    // Attempt to query deliveries table for sums (these columns may not exist in user's schema)
+
     $placeholders = implode(',', array_fill(0, count($days), '?'));
     $sql = "SELECT DATE(delivered_at) as d, 
                IFNULL(SUM(amount),0) as total_amt, 
@@ -45,11 +45,11 @@ try{
         }
     }
 
-    // summary
+
     $week_total = array_sum($total);
     $daily_avg = $week_total / max(1, count($total));
     $total_orders = 0;
-    // try to get count
+
     try{
       $cstmt = $pdo->prepare("SELECT COUNT(*) FROM deliveries WHERE DATE(delivered_at) BETWEEN ? AND ?");
       $cstmt->execute([reset($days), end($days)]);
@@ -65,7 +65,7 @@ try{
     exit;
 
 }catch(Exception $e){
-    // Fallback to sample data
+
     $labels = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
     $base = [60,70,55,75,85,95,90];
     $total = [80,85,70,100,120,160,150];

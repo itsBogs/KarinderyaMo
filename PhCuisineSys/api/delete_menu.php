@@ -25,7 +25,7 @@ try {
     $del = $pdo->prepare('DELETE FROM menu_items WHERE id = ?');
     $del->execute([$id]);
 
-    // Remove local image file if present and not a remote URL
+
     if ($image && stripos($image, 'http') !== 0) {
         $localPath = __DIR__ . '/..' . (strpos($image, '/') === 0 ? $image : '/' . $image);
         if (file_exists($localPath)) {

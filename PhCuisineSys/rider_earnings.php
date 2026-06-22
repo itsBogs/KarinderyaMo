@@ -1,5 +1,5 @@
 <?php
-// Rider Earnings - dynamic data
+
 require_once __DIR__ . '/db.php';
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -23,7 +23,7 @@ $totalOrders = 0;
 try {
     $pdo = getPDO();
 
-    // Last 7 days earnings (including today)
+
     $stmt = $pdo->prepare("
         SELECT DATE(d.delivered_at) AS day,
                SUM(CASE WHEN d.amount IS NULL OR d.amount = 0 THEN o.shipping_fee ELSE d.amount END) AS earnings,
@@ -36,7 +36,7 @@ try {
     $stmt->execute([$user_id]);
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Initialize 7-day window
+
     for ($i = 6; $i >= 0; $i--) {
         $date = date('Y-m-d', strtotime("-$i day"));
         $weekData[$date] = [
@@ -54,13 +54,13 @@ try {
         }
     }
 
-    // Totals
+
     foreach ($weekData as $d) {
         $weekTotal += $d['earnings'];
     }
     $dailyAvg = $weekTotal / 7;
 
-    // Lifetime delivered orders and per-order earnings
+
     $stmtTotal = $pdo->prepare("
         SELECT 
             COUNT(*) AS delivered_count,
@@ -78,7 +78,7 @@ try {
     error_log('Rider earnings error: ' . $e->getMessage());
 }
 
-// Prepare chart arrays
+
 $chartLabels = [];
 $chartValues = [];
 foreach ($weekData as $date => $d) {
@@ -151,7 +151,7 @@ foreach ($weekData as $date => $d) {
 
     console.log('✅ Chart.js ready, initializing earnings chart...');
 
-    // Destroy existing chart if it exists
+
     const existingChart = Chart.getChart('earningsChart');
     if (existingChart) {
       console.log('🗑️ Destroying existing earnings chart');
@@ -214,7 +214,7 @@ foreach ($weekData as $date => $d) {
     }
   }
 
-  // Start initialization
+
   initEarningsChart();
 })();
 </script>

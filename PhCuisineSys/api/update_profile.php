@@ -1,11 +1,11 @@
 <?php
-// api/update_profile.php - AJAX Profile Update Handler
+
 session_start();
 require_once __DIR__ . '/../db.php';
 
 header('Content-Type: application/json');
 
-// Check if user is logged in
+
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['success' => false, 'message' => 'Not logged in']);
     exit;
@@ -21,7 +21,7 @@ $name = trim($_POST['name'] ?? '');
 $phone = trim($_POST['phone'] ?? '');
 $home_address = trim($_POST['home_address'] ?? '');
 
-// Validation
+
 if (empty($name)) {
     echo json_encode(['success' => false, 'message' => 'Name is required']);
     exit;
@@ -40,11 +40,11 @@ if (empty($home_address)) {
 try {
     $pdo = getPDO();
     
-    // Update database
+
     $updateStmt = $pdo->prepare('UPDATE users SET name = ?, phone = ?, delivery_address = ? WHERE id = ?');
     $updateStmt->execute([$name, $phone, $home_address, $user_id]);
     
-    // Update SESSION variables - THIS IS THE KEY!
+
     $_SESSION['user_name'] = $name;
     $_SESSION['user_phone'] = $phone;
     $_SESSION['user_address'] = $home_address;

@@ -1,13 +1,13 @@
 <?php
-// 1. PHP FIX: Tiyakin na ito ang UNANG session_start() call.
+
 session_start();
 
-// Siguraduhin na tama ang path papunta sa db.php
+
 require_once __DIR__ . '/db.php'; 
-// Load settings helper to use dynamic site name
+
 require_once __DIR__ . '/includes/settings.php';
 
-// Tiyakin na naka-login at role ay 'rider'
+
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'rider') {
     header('Location: login.php'); 
     exit;
@@ -29,7 +29,7 @@ $user_id = $_SESSION['user_id'];
 <script src="js/theme-sync.js"></script>
 <style>
 @import url('theme.php');
-/* UI STYLING (The same styles you provided) */
+
 :root {
   --bg: var(--theme-bg, #fff9ea);
   --muted: var(--theme-muted, #ffe8b4);
@@ -94,8 +94,8 @@ body, html {
   justify-content: center;
   z-index: 99;
   transition: all 0.3s;
-  /* Adjustments for initial positioning */
-  left: 260px; /* Initial position outside the sidebar (250px + margin) */
+  
+  left: 260px; 
   right: auto;
 }
 
@@ -104,13 +104,13 @@ body, html {
   box-shadow: 0 6px 14px rgba(233, 162, 9, 0.4);
 }
 
-/* Update toggle button position when sidebar collapsed */
+
 .app.collapsed #toggleSidebarBtn { 
     right: auto;
     left: 20px; 
 }
 
-/* Mobile Responsive Styles */
+
 @media (max-width: 768px) {
   .app {
     flex-direction: column;
@@ -231,7 +231,7 @@ body, html {
 
   <main class="main" id="mainContent">
     <?php 
-    // Initial page load: rider_deliveries.php
+
     include 'rider_deliveries.php'; 
     ?>
   </main>
@@ -245,9 +245,9 @@ const toggleBtn = document.getElementById('toggleSidebarBtn');
 const app = document.querySelector('.app');
 const sidebar = document.querySelector('.sidebar');
 
-// 2. FIX: Global variable at control functions para sa auto-refresh
+
 let refreshIntervalId = null; 
-const REFRESH_INTERVAL_MS = 15000; // 15 seconds
+const REFRESH_INTERVAL_MS = 15000; 
 
 function clearDeliveryRefresh() {
     if (refreshIntervalId !== null) {
@@ -257,18 +257,18 @@ function clearDeliveryRefresh() {
     }
 }
 
-// Function to load the current deliveries page content (used by the interval)
+
 function loadRiderDeliveriesContent() {
     const deliveryItem = document.querySelector('.menu-item[data-section="rider_deliveries"]');
     if (deliveryItem) {
-        // Only refresh if the user is currently viewing the deliveries page
+
         if (deliveryItem.classList.contains('active')) {
-            // Re-use the fetch logic to load the content
+
             fetch('rider_deliveries.php')
                 .then(res => res.text())
                 .then(html => {
                     mainContent.innerHTML = html;
-                    // Re-execute scripts logic (essential if the content has dynamic JS)
+
                     reExecuteScripts(mainContent);
                     console.log('Rider Deliveries refreshed automatically.');
                 })
@@ -278,15 +278,15 @@ function loadRiderDeliveriesContent() {
 }
 
 function startDeliveryRefresh() {
-    // Clear any existing interval just in case
+
     clearDeliveryRefresh(); 
     
-    // Start the new interval
+
     refreshIntervalId = setInterval(loadRiderDeliveriesContent, REFRESH_INTERVAL_MS);
     console.log(`Delivery refresh started (every ${REFRESH_INTERVAL_MS/1000}s).`);
 }
 
-// Helper for script re-execution (moved to a function for cleanliness)
+
 function reExecuteScripts(targetElement) {
     const scripts = targetElement.querySelectorAll('script');
     scripts.forEach(oldScript => {
@@ -304,7 +304,7 @@ function reExecuteScripts(targetElement) {
     });
 }
 
-// Toggle sidebar logic
+
 function updateToggleIcon() {
     const icon = toggleBtn.querySelector('i');
     if (app.classList.contains('collapsed')) {
@@ -316,7 +316,7 @@ function updateToggleIcon() {
     }
 }
 
-// Start with collapsed sidebar on mobile
+
 if (window.innerWidth <= 768) {
     app.classList.add('collapsed');
 }
@@ -326,7 +326,7 @@ toggleBtn.addEventListener('click', () => {
     updateToggleIcon();
 });
 
-// Close sidebar when clicking outside on mobile
+
 if (window.innerWidth <= 768) {
     app.addEventListener('click', (e) => {
         if (!app.classList.contains('collapsed') && 
@@ -339,7 +339,7 @@ if (window.innerWidth <= 768) {
 
 updateToggleIcon();
 
-// AJAX Section switching
+
 const menuItems = document.querySelectorAll('.menu-item');
 const mainContent = document.getElementById('mainContent');
 
@@ -351,10 +351,10 @@ menuItems.forEach(item => {
     let section = this.dataset.section;
     let url = section + '.php';
 
-    // 3. FIX: Papatayin ang refresh timer bago mag-load ng bagong content
+
     clearDeliveryRefresh();
     
-    // Show loading indicator
+
     mainContent.innerHTML = '<div class="text-center p-5"><div class="spinner-border text-primary" role="status"></div><p class="mt-2">Loading content for ' + section + '...</p></div>';
 
     fetch(url)
@@ -365,18 +365,18 @@ menuItems.forEach(item => {
           return res.text();
       })
       .then(html => {
-        // Update the main content directly
+
         mainContent.innerHTML = html;
 
-        // Re-execute any scripts
+
         reExecuteScripts(mainContent);
 
-        // 4. FIX: Auto-refresh disabled to prevent menu switching
-        // if(section === 'rider_deliveries') {
-        //     startDeliveryRefresh(); 
-        // }
 
-        // init charts after fragment injection
+
+
+
+
+
         if(section === 'rider_earnings' && typeof initEarningsChart === 'function') {
             initEarningsChart();
         }
@@ -389,7 +389,7 @@ menuItems.forEach(item => {
   });
 });
 
-// INITIAL LOAD: Set initial active state and start refresh
+
 document.addEventListener('DOMContentLoaded', function(){
     const initialSection = 'rider_deliveries';
     const initialLi = document.querySelector(`.menu-item[data-section="${initialSection}"]`);
@@ -397,20 +397,20 @@ document.addEventListener('DOMContentLoaded', function(){
         menuItems.forEach(item => item.classList.remove('active'));
         initialLi.classList.add('active');
         
-        // Start the refresh on initial load since rider_deliveries is the default
-        // startDeliveryRefresh(); // Disabled to prevent auto-switching 
+
+
     }
 });
 
-// 5. initEarningsChart Function (Kept as provided by you)
+
 let earningsChartInstance = null;
 function initEarningsChart(){
-    // ... (Your existing, long initEarningsChart code here)
-    // Please make sure the code for initEarningsChart is present below this line,
-    // or inside rider_earnings.php (and properly executed by reExecuteScripts)
-    // for the earnings page to work correctly.
+
+
+
+
 }
-// End of initEarningsChart
+
 </script>
 </body>
 </html>

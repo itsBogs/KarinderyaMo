@@ -1,5 +1,5 @@
 <?php
-// register.php - create account for owner/admin/rider/customer
+
 session_start();
 require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/includes/settings.php';
@@ -7,7 +7,7 @@ require_once __DIR__ . '/includes/settings.php';
 $errors = [];
 $success = '';
 
-// Allowed roles (admin/owner cannot self-register)
+
 $roles = ['rider','customer'];
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -40,17 +40,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if(empty($errors)){
         try{
             $pdo = getPDO();
-            // check duplicate email
+
             $stmt = $pdo->prepare('SELECT id FROM users WHERE email = ? LIMIT 1');
             $stmt->execute([$email]);
             if($stmt->fetch()){
                 $errors[] = 'An account with that email already exists.';
             }else{
-                // Insert with phone and delivery address
+
                 $stmt = $pdo->prepare('INSERT INTO users (name, email, phone, password, delivery_address, role, status) VALUES (?, ?, ?, ?, ?, ?, ?)');
                 $stmt->execute([$name, $email, $phone, $password, $delivery_address, $role, 'active']);
                 $success = 'Account created successfully! You can now log in.';
-                // Clear form
+
                 $_POST = [];
             }
         }catch(Exception $e){
@@ -144,7 +144,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       </form>
 
       <script>
-        // Show delivery address field only for customer role
+
         const roleSelect = document.querySelector('select[name="role"]');
         const deliveryAddressGroup = document.getElementById('delivery-address-group');
         const deliveryAddressInput = document.querySelector('textarea[name="delivery_address"]');
@@ -160,7 +160,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
         
         roleSelect.addEventListener('change', toggleDeliveryAddress);
-        // Initial check on page load
+
         window.addEventListener('load', toggleDeliveryAddress);
       </script>
 

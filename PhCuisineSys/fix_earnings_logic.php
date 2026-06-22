@@ -1,9 +1,9 @@
 <?php
-/**
- * Migration Script: Fix Delivery Earnings (Shipping Fee Only)
- * This script updates all delivery records to use the shipping_fee (58.00)
- * instead of the total_amount for rider earnings.
- */
+
+
+
+
+
 
 require_once __DIR__ . '/db.php';
 
@@ -12,8 +12,8 @@ try {
     
     echo "<h3>Fixing Rider Earnings...</h3>";
     
-    // Update all deliveries to use shipping_fee from orders
-    // We update ALL delivered records to ensure consistency
+
+
     $sql = "
         UPDATE deliveries d
         INNER JOIN orders o ON d.order_id = o.id
@@ -29,7 +29,7 @@ try {
     echo "✅ Migration Complete!<br>";
     echo "Updated {$rowsUpdated} delivery records to use Shipping Fee (₱58.00) as earnings.<br><br>";
     
-    // Show summary
+
     echo "<strong>Updated Records (Sample):</strong><br>";
     $summary = $pdo->query("
         SELECT 

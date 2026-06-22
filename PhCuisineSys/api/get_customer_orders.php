@@ -1,5 +1,5 @@
 <?php
-// api/get_customer_orders.php - returns current customer's orders with items
+
 session_start();
 require_once __DIR__ . '/../db.php';
 header('Content-Type: application/json');
@@ -30,7 +30,7 @@ try {
     $ordersStmt->execute([$user_id]);
     $orders = $ordersStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // fetch items per order
+
     $itemsStmt = $pdo->prepare('
         SELECT oi.order_id, oi.quantity, oi.price, mi.name, mi.image
         FROM order_items oi

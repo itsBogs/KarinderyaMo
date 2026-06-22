@@ -1,4 +1,4 @@
-/* Login Page Styles */
+
 @import url('../theme.php');
 
 :root {
@@ -81,7 +81,7 @@
   z-index: 1;
 }
 
-/* Header Section */
+
 .login-header {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
   color: var(--text);
@@ -114,7 +114,7 @@
   opacity: 0.85;
 }
 
-/* Body Content */
+
 .login-card > * {
   margin: 0;
   padding: 0 32px;
@@ -135,7 +135,7 @@
   margin-bottom: 16px;
 }
 
-/* Role Selector */
+
 .role-selector {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -178,7 +178,7 @@
   font-weight: 600;
 }
 
-/* Form */
+
 #login-form {
   padding: 20px 32px;
   display: flex;
@@ -235,7 +235,7 @@
   transform: translateY(0);
 }
 
-/* Footer */
+
 .login-footer {
   padding: 20px 32px !important;
   text-align: center;
@@ -278,7 +278,7 @@
   100% { transform: translate3d(40px, 30px, 0); }
 }
 
-/* Mobile Responsive Styles */
+
 @media(max-width: 768px) {
   .login-body {
     padding: 16px;
@@ -322,7 +322,7 @@
     font-size: 28px;
   }
 
-  /* Role selector */
+  
   .role-selector {
     gap: 6px !important;
     margin-bottom: 16px !important;
@@ -341,7 +341,7 @@
     font-size: 18px;
   }
 
-  /* Test credentials box */
+  
   #test-creds {
     margin: 12px 0 16px !important;
     padding: 10px 12px !important;
@@ -357,7 +357,7 @@
     word-break: break-word;
   }
 
-  /* Form elements */
+  
   .form-group {
     margin-bottom: 16px;
   }
@@ -377,7 +377,7 @@
     font-size: 15px;
   }
 
-  /* Footer */
+  
   .login-footer {
     padding: 16px 0;
     font-size: 12px;
@@ -387,7 +387,7 @@
     margin-bottom: 10px;
   }
 
-  /* Alert messages */
+  
   .alert {
     font-size: 12px;
     padding: 10px 12px;

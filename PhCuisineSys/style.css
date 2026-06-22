@@ -13,7 +13,7 @@
 *{box-sizing:border-box;}
 html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;background:var(--bg);color:var(--text);}
 
-/* Floating toggle button */
+
 .toggle-btn {
   position: fixed;
   top: 20px;
@@ -33,7 +33,7 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helv
   background: var(--accent-2);
 }
 
-/* Layout */
+
 .app {
   display: grid;
   grid-template-columns: 320px 1fr;
@@ -43,7 +43,7 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helv
   transition: grid-template-columns 0.3s ease;
 }
 
-/* Sidebar */
+
 .sidebar {
   background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.2));
   border-radius: var(--radius);
@@ -57,14 +57,14 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helv
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Sidebar hidden */
+
 .app.collapsed .sidebar {
   transform: translateX(-20px);
   opacity: 0;
   pointer-events: none;
 }
 
-/* Main panel */
+
 .main {
   padding:20px;
   border-radius: var(--radius);
@@ -74,18 +74,18 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helv
   transition: all 0.3s ease;
 }
 
-/* Expand main when sidebar hidden */
+
 .app.collapsed {
-  grid-template-columns: 0 1fr; /* first column 0, main takes full width */
+  grid-template-columns: 0 1fr; 
 }
 
-/* Brand */
+
 .brand { display:flex; align-items:center; gap:12px; padding-bottom:8px; border-bottom:1px dashed var(--muted);}
 .logo { width:48px; height:48px; border-radius:10px; background: linear-gradient(135deg,var(--accent),var(--accent-2)); display:flex;align-items:center;justify-content:center;color:white;font-weight:700;box-shadow:0 6px 12px rgba(203,55,55,0.12);}
 .brand h1{margin:0;font-size:16px}
 .brand p{margin:0;font-size:12px;color:#666}
 
-/* Menu */
+
 .menu { margin-top:8px; overflow:auto; padding-right:6px; scrollbar-width: thin; scrollbar-color: var(--accent) var(--muted);}
 .menu::-webkit-scrollbar { width: 10px; }
 .menu::-webkit-scrollbar-track { background: var(--muted); border-radius: 10px; margin:6px 0; }
@@ -105,11 +105,11 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helv
 .color.accent{ background:var(--accent);}
 .color.accent-2{ background:var(--accent-2);}
 
-/* Grid & Cards */
+
 .grid { display:grid; grid-template-columns: 1fr 420px; gap:18px; margin-top:18px; align-items:start; }
 .card { background:var(--card); padding:14px; border-radius:10px; box-shadow: 0 6px 18px rgba(0,0,0,0.03); }
 
-/* Forms & Tables */
+
 .form-row { display:flex; flex-direction:column; gap:8px; margin-bottom:10px; }
 label{ font-size:13px; color:#444; }
 input[type="text"], input[type="password"], select { padding:10px; border-radius:8px; border:1px solid var(--muted); outline:none; font-size:14px; background:transparent; }
@@ -119,7 +119,7 @@ input[type="text"], input[type="password"], select { padding:10px; border-radius
 .pill { padding:6px 10px; border-radius:999px; background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:white; font-weight:600; font-size:13px;}
 .table-wrapper { overflow:auto; max-height:560px; }
 
-/* Responsive */
+
 @media (max-width:900px){
   .app{ grid-template-columns: 1fr; padding:12px; }
   .grid{ grid-template-columns: 1fr; }

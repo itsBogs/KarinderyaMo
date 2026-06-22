@@ -1,11 +1,11 @@
 <?php
-// admin_customers.php - Manage and view customer profiles with order history
+
 require_once __DIR__ . '/db.php';
 
 session_start();
 require_once __DIR__ . '/includes/settings.php';
 
-// Check if user is logged in and is admin
+
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
     header('Location: main/login.html');
     exit();
@@ -16,7 +16,7 @@ $selected_customer = null;
 try {
     $pdo = getPDO();
     
-    // Get all customers
+
     $stmt = $pdo->query("
         SELECT id, name, email, phone, delivery_address, created_at, status
         FROM users 
@@ -25,7 +25,7 @@ try {
     ");
     $customers = $stmt->fetchAll();
 
-    // If a customer is selected, get their details and orders
+
     if (isset($_GET['customer_id'])) {
         $customer_id = intval($_GET['customer_id']);
         
@@ -38,7 +38,7 @@ try {
         $selected_customer = $stmt->fetch();
 
         if ($selected_customer) {
-            // Get customer orders with items
+
             $stmt = $pdo->prepare("
                 SELECT o.id, o.order_number, o.total_amount, o.status, o.payment_method, o.delivery_address, o.created_at
                 FROM orders o
@@ -48,7 +48,7 @@ try {
             $stmt->execute([$customer_id]);
             $selected_customer['orders'] = $stmt->fetchAll();
 
-            // Get order items for each order
+
             foreach ($selected_customer['orders'] as &$order) {
                 $stmt = $pdo->prepare("
                     SELECT oi.id, oi.quantity, oi.price, m.name, m.image

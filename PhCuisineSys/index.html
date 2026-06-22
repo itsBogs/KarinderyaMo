@@ -324,7 +324,7 @@
     </footer>
     <script src="src/javascript/script.js"></script>
         <script>
-            // Apply site meta (site_name / site_description) from localStorage and listen for live updates
+
             (function(){
                 function applySiteMeta(meta) {
                     if (!meta) return;
@@ -332,7 +332,7 @@
                         const m = typeof meta === 'string' ? JSON.parse(meta) : meta;
                         if (m.site_name) {
                             document.querySelectorAll('.site-name').forEach(el => el.textContent = m.site_name);
-                            // update document title if it contains the old name
+
                             if (document.title && document.title.indexOf('Karinderya Mo') !== -1) {
                                 const parts = document.title.split('-');
                                 parts[0] = (parts[0].split('—')[0] || '').trim();
@@ -345,10 +345,10 @@
                             document.querySelectorAll('.site-desc').forEach(el => el.textContent = m.site_description);
                         }
                     } catch (e) {
-                        // ignore
+
                     }
                 }
-                // initial apply
+
                 applySiteMeta(localStorage.getItem('site_meta'));
                 window.addEventListener('storage', (e) => {
                     if (e.key === 'site_meta') applySiteMeta(e.newValue);

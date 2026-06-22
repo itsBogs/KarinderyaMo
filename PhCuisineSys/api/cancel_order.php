@@ -1,5 +1,5 @@
 <?php
-// api/cancel_order.php - AJAX handler to cancel pending orders
+
 session_start();
 require_once __DIR__ . '/../db.php';
 header('Content-Type: application/json');

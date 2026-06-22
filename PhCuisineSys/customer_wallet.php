@@ -1,10 +1,10 @@
 <?php
-// customer_wallet.php - Customer's Virtual Wallet
+
 require 'db.php';
 session_start();
 require_once __DIR__ . '/includes/settings.php';
 
-// Check if user is logged in and is a customer
+
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'customer') {
     header('Location: main/login.html');
     exit;
@@ -17,7 +17,7 @@ $message_type = 'info';
 $bank_unlocked = isset($_SESSION['bank_unlocked']) && $_SESSION['bank_unlocked'] === true;
 $wallet_user_id = $_SESSION['bank_unlocked_user_id'] ?? $user_id;
 
-// Fetch bank account info if exists for the current wallet user
+
 $bank_account = null;
 try {
     $stmt = $pdo->prepare("SELECT * FROM bank_accounts WHERE user_id = ?");
@@ -27,7 +27,7 @@ try {
     $bank_account = null;
 }
 
-// Handle bank account registration
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'register_bank') {
     $full_name = trim($_POST['full_name'] ?? '');
     $age = intval($_POST['age'] ?? 0);
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'regis
     }
 }
 
-// Handle bank unlock via PIN (any account with matching PIN)
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'unlock_bank') {
     $pin = trim($_POST['pin'] ?? '');
     $unlock_account = null;
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'unloc
     }
 }
 
-// Handle bank lock/logout
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'lock_bank') {
     unset($_SESSION['bank_unlocked']);
     unset($_SESSION['bank_unlocked_user_id']);
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'lock_
     $message_type = 'info';
 }
 
-// Handle deposit (requires unlocked bank account)
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'deposit') {
     if (!$bank_unlocked) {
         $message = '❌ Unlock your bank account with PIN before adding funds.';
@@ -126,13 +126,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         try {
             $pdo->beginTransaction();
             
-            // Get current balance
+
             $stmt = $pdo->prepare("SELECT balance FROM wallet WHERE user_id = ? FOR UPDATE");
             $stmt->execute([$wallet_user_id]);
             $wallet = $stmt->fetch();
             
             if (!$wallet) {
-                // Create wallet if it doesn't exist
+
                 $stmt = $pdo->prepare("INSERT INTO wallet (user_id, balance) VALUES (?, 0.00)");
                 $stmt->execute([$wallet_user_id]);
                 $balance_before = 0.00;
@@ -142,11 +142,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             
             $balance_after = $balance_before + $amount;
             
-            // Update wallet balance
+
             $stmt = $pdo->prepare("UPDATE wallet SET balance = ? WHERE user_id = ?");
             $stmt->execute([$balance_after, $wallet_user_id]);
             
-            // Record transaction
+
             $stmt = $pdo->prepare("
                 INSERT INTO wallet_transactions 
                 (user_id, transaction_type, amount, balance_before, balance_after, reference_type, description) 
@@ -168,14 +168,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-// Get wallet balance
+
 try {
     $stmt = $pdo->prepare("SELECT balance FROM wallet WHERE user_id = ?");
     $stmt->execute([$wallet_user_id]);
     $wallet = $stmt->fetch();
     $balance = $wallet ? $wallet['balance'] : 0.00;
     
-    // If wallet doesn't exist, create it
+
     if (!$wallet) {
         $stmt = $pdo->prepare("INSERT INTO wallet (user_id, balance) VALUES (?, 0.00)");
         $stmt->execute([$wallet_user_id]);
@@ -185,7 +185,7 @@ try {
     $balance = 0.00;
 }
 
-// Get transaction history
+
 try {
     $stmt = $pdo->prepare("
         SELECT * FROM wallet_transactions 
@@ -199,7 +199,7 @@ try {
     $transactions = [];
 }
 
-// Get user info
+
 try {
     $stmt = $pdo->prepare("SELECT name, email FROM users WHERE id = ?");
     $stmt->execute([$wallet_user_id]);
@@ -501,7 +501,7 @@ try {
                 registerSection.style.display = 'block';
                 loginSection.style.display = 'none';
             });
-            // default: show choice only; sections hidden
+
         }
     })();
     </script>

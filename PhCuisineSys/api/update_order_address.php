@@ -1,5 +1,5 @@
 <?php
-// api/update_order_address.php - AJAX handler for updating delivery address
+
 session_start();
 require_once __DIR__ . '/../db.php';
 header('Content-Type: application/json');
@@ -30,7 +30,7 @@ if (!$order_id || !$new_address) {
 
 try {
     $pdo = getPDO();
-    // Ensure order belongs to customer and still pending
+
     $check = $pdo->prepare('SELECT status FROM orders WHERE id = ? AND customer_id = ?');
     $check->execute([$order_id, $user_id]);
     $order = $check->fetch();

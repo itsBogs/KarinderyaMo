@@ -1,12 +1,12 @@
 <?php
-// bank-info.php - Manage payment information settings
+
 require_once __DIR__ . '/db.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Security check for admin role
+
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
     echo '<div class="alert alert-danger">Unauthorized access.</div>';
     exit;
@@ -15,7 +15,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
 $message = '';
 $message_type = 'info';
 
-// Handle form submission
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'save_bank_info') {
     try {
         $pdo = getPDO();
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-// Fetch current settings to display in the form
+
 $current_settings = [];
 $user_options = [];
 try {
@@ -63,7 +63,7 @@ try {
         $current_settings[$key] = $results[$key] ?? '';
     }
 
-    // Pull registered users for quick-fill (id, name, phone)
+
     $user_stmt = $pdo->query("SELECT id, name, phone FROM users ORDER BY name ASC");
     $user_options = $user_stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -189,7 +189,7 @@ try {
 
 
 <script>
-// Quick-fill: when a user is selected, populate GCash name/number
+
 document.getElementById('user_quick_fill')?.addEventListener('change', function() {
     const opt = this.options[this.selectedIndex];
     const name = opt?.dataset?.name || '';

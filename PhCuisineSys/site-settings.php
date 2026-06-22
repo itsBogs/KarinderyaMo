@@ -1,9 +1,9 @@
 <?php
-// site-settings.php - Manage site configuration values stored in `settings` table
+
 require_once __DIR__ . '/db.php';
 if (session_status() === PHP_SESSION_NONE) session_start();
 
-// Lighten a hex color by blending toward white (factor 0-1)
+
 function lightenColor($hex, $factor = 0.85) {
   $hex = ltrim(trim($hex), '#');
   if (strlen($hex) === 3) {
@@ -19,7 +19,7 @@ function lightenColor($hex, $factor = 0.85) {
   return sprintf('#%02x%02x%02x', $blend($r), $blend($g), $blend($b));
 }
 
-// Optional: basic role check (only admin/owner)
+
 $canEdit = isset($_SESSION['user_role']) && in_array($_SESSION['user_role'], ['admin','owner'], true);
 
 $pdo = getPDO();
@@ -35,7 +35,7 @@ $keys = [
   'theme_text_color' => '#1d1d1d'
 ];
 
-// Save settings
+
 $message = '';
 $errors = [];
 if ($canEdit && $_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -45,11 +45,11 @@ if ($canEdit && $_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 
-  // Derive supporting theme colors from primary/secondary
+
   $primary = $keys['theme_primary_color'];
   $keys['theme_bg_color'] = lightenColor($primary, 0.92);
   $keys['theme_muted_color'] = lightenColor($primary, 0.82);
-  // Keep text stable for readability
+
   $keys['theme_text_color'] = '#1d1d1d';
     try {
         $stmt = $pdo->prepare('INSERT INTO settings (key_name, value) VALUES (:k, :v)
@@ -62,7 +62,7 @@ if ($canEdit && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'Could not save settings: ' . $e->getMessage();
     }
 
-    // If request came from AJAX (fetch), return JSON so client can update without reload
+
     $isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest')
          || (isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false);
 
@@ -73,7 +73,7 @@ if ($canEdit && $_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
       }
 
-      // Return the saved site meta and theme so the client can broadcast and apply
+
       $site_meta = [
         'site_name' => $keys['site_name'],
         'site_description' => $keys['site_description']
@@ -91,7 +91,7 @@ if ($canEdit && $_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Load existing settings
+
 try {
     $stmt = $pdo->query('SELECT key_name, value FROM settings');
     foreach ($stmt->fetchAll() as $row) {
@@ -166,7 +166,7 @@ try {
 </div>
 
 <script>
-// Instant live preview and broadcast on color change
+
 (function() {
   const THEME_KEY = 'theme-update';
   const root = document.documentElement;
@@ -197,7 +197,7 @@ try {
     root.style.setProperty('--theme-muted', muted);
     root.style.setProperty('--theme-text', text);
     
-    // Broadcast to other tabs immediately
+
     const data = {
       primary: primary,
       secondary: secondary,
@@ -209,7 +209,7 @@ try {
     localStorage.setItem(THEME_KEY, JSON.stringify(data));
   }
 
-  // Apply site meta (used to update the current admin UI immediately)
+
   function applySiteMeta(meta) {
     if (!meta) return;
     try {
@@ -218,18 +218,18 @@ try {
       if (m.site_description) document.querySelectorAll('.site-desc').forEach(el => el.textContent = m.site_description);
       if (m.site_name) {
         if (document.title && (document.title.indexOf('—') !== -1 || document.title.indexOf('-') !== -1)) {
-          // replace right-most occurrence of site name if present
+
           document.title = m.site_name + ' - ' + (document.title.split('-').slice(1).join('-') || '');
         } else {
           document.title = m.site_name + ' - ' + (m.site_description || '');
         }
       }
     } catch (e) {
-      // ignore
+
     }
   }
   
-  // Live preview on input change
+
   if (primaryInput) {
     primaryInput.addEventListener('input', function() {
       applyTheme(this.value, secondaryInput.value);
@@ -240,7 +240,7 @@ try {
       applyTheme(primaryInput.value, this.value);
     });
   }
-  // Broadcast site name/description changes so open tabs update live
+
   const siteNameInput = document.querySelector('input[name="site_name"]');
   const siteDescInput = document.querySelector('input[name="site_description"]');
   function broadcastSiteMeta() {
@@ -250,16 +250,16 @@ try {
       ts: Date.now()
     };
     localStorage.setItem('site_meta', JSON.stringify(meta));
-    // Also apply immediately to this tab (storage events don't fire in same tab)
+
     applySiteMeta(meta);
   }
   if (siteNameInput) siteNameInput.addEventListener('input', broadcastSiteMeta);
   if (siteDescInput) siteDescInput.addEventListener('input', broadcastSiteMeta);
   
-  // On form submit, save to DB
+
   const form = document.getElementById('theme-form');
     if (form) {
-      // mark this form as having its own AJAX handler so generic handlers skip it
+
       form.dataset.ajaxAttached = 'true';
       form.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -284,15 +284,15 @@ try {
           }
 
           if (data.success) {
-            // Broadcast theme (existing behavior uses localStorage 'theme-update')
+
             if (data.theme) {
               const themeData = { primary: data.theme.primary, secondary: data.theme.secondary, bg: data.theme.bg, muted: data.theme.muted, text: data.theme.text, ts: Date.now() };
               localStorage.setItem('theme-update', JSON.stringify(themeData));
-              // applyTheme expects (primary, secondary)
+
               try { applyTheme(themeData.primary, themeData.secondary); } catch (e) {}
             }
 
-            // Broadcast site meta and apply immediately in this tab
+
             if (data.site_meta) {
               const meta = { site_name: data.site_meta.site_name, site_description: data.site_meta.site_description, ts: Date.now() };
               localStorage.setItem('site_meta', JSON.stringify(meta));

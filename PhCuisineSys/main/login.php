@@ -1,5 +1,5 @@
 <?php
-// main/login.php - Authentication handler
+
 require '../db.php';
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -21,14 +21,14 @@ try {
     $password = trim($_POST['password'] ?? '');
     $role = trim($_POST['role'] ?? 'customer');
 
-    // Allowed roles
+
     $allowedRoles = ['customer','rider','admin','owner'];
     if (!in_array($role, $allowedRoles, true)) {
         echo json_encode(['success' => false, 'message' => '❌ Invalid role']);
         exit;
     }
 
-    // Admin/Owner: password-only login
+
     if ($role === 'admin' || $role === 'owner') {
         $expectedPass = $role === 'admin' ? 'admin123' : 'owner123';
         if ($password !== $expectedPass) {
@@ -36,13 +36,13 @@ try {
             exit;
         }
 
-        // Fetch the existing account for the role
+
         $stmt = $pdo->prepare("SELECT * FROM users WHERE role = ? ORDER BY id ASC LIMIT 1");
         $stmt->execute([$role]);
         $user = $stmt->fetch();
 
         if (!$user) {
-            // Auto-create a default owner account if none exists
+
             $placeholderEmail = 'owner@example.com';
             $insert = $pdo->prepare("INSERT INTO users (name, email, password, role, status, created_at) VALUES (?, ?, ?, 'owner', 'active', NOW())");
             $insert->execute(['Owner Account', $placeholderEmail, 'owner123']);
@@ -57,7 +57,7 @@ try {
             exit;
         }
 
-        // Set session - clear existing session first for admin/owner
+
         session_unset();
         session_destroy();
         session_start();
@@ -77,13 +77,13 @@ try {
         exit;
     }
 
-    // Non-admin: require email + password
+
     if (!$email || !$password) {
         echo json_encode(['success' => false, 'message' => '❌ Email and password are required']);
         exit;
     }
 
-    // Check user in database (plain text password comparison)
+
     $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ? AND role = ?');
     $stmt->execute([$email, $role]);
     $user = $stmt->fetch();
@@ -93,22 +93,22 @@ try {
         exit;
     }
 
-    // Check password (plain text comparison - NO HASHING)
+
     if ($user['password'] !== $password) {
         echo json_encode(['success' => false, 'message' => '❌ Invalid email or password']);
         exit;
     }
 
-    // Block login when account is inactive
+
     if ($user['status'] === 'inactive') {
         echo json_encode(['success' => false, 'message' => '⛔ This account was deactivated by an admin. Please contact support.']);
         exit;
     }
 
-    // Login successful - clear any existing session and create new one
-    session_unset(); // Clear all session variables
-    session_destroy(); // Destroy old session
-    session_start(); // Start fresh session
+
+    session_unset(); 
+    session_destroy(); 
+    session_start(); 
     
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['user_name'] = $user['name'];
@@ -117,7 +117,7 @@ try {
     $_SESSION['user_phone'] = $user['phone'] ?? '';
     $_SESSION['user_address'] = $user['delivery_address'] ?? '';
 
-    // Determine redirect based on role
+
     $redirect = match($role) {
         'rider' => '../rider_panel.php',
         default => '../index.php'

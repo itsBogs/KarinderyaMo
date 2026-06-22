@@ -10,7 +10,7 @@
 <body class="login-body">
   <div class="login-wrapper">
     <div class="login-card">
-      <!-- Header -->
+      
       <div class="login-header">
         <div class="logo-icon">🍲</div>
         <h1 class="site-name">Karinderya Mo</h1>
@@ -18,10 +18,10 @@
         <p class="header-text">Sign in to continue</p>
       </div>
 
-      <!-- Error Message -->
+      
       <div id="error-message" class="alert alert-danger" style="display:none;"></div>
 
-      <!-- Role Selection -->
+      
       <div class="role-selector" style="display:flex; gap:10px; justify-content:center; flex-wrap:nowrap;">
         <button class="role-btn active" data-role="customer" style="flex:1 1 0; min-width:100px; max-width:140px;">
           <span class="role-icon">👤</span>
@@ -41,7 +41,7 @@
         </button>
       </div>
 
-      <!-- Login Form -->
+      
       <form id="login-form">
         <div class="form-group" id="email-group">
           <label id="email-label">Email</label>
@@ -52,7 +52,7 @@
           <input type="password" id="password" placeholder="Enter your password" required>
         </div>
 
-        <!-- Test Credentials Info -->
+        
         <div id="test-creds" style="display: none; margin: -8px 0 16px; padding: 10px 14px; background: #f8f9fa; border-left: 4px solid #667eea; border-radius: 6px;">
           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px;">
             <span style="font-size: 16px;">💡</span>
@@ -69,7 +69,7 @@
         <button type="submit" class="login-btn">Sign In</button>
       </form>
 
-      <!-- Footer Links -->
+      
       <div class="login-footer">
         <p>Don't have an account? <a href="../register.php">Register here</a></p>
         <a href="../index.php" class="back-link">← Back to Home</a>
@@ -87,27 +87,19 @@
     const credsText = document.getElementById('creds-text');
     const credsLabel = document.getElementById('creds-label');
     const registerLink = document.getElementById('register-link');
-
-    // Test credentials for all roles
     const testCreds = {
       customer: 'customer@karinderya.com / customer123',
       rider: 'rider@karinderya.com / rider123',
       admin: 'admin123',
       owner: 'owner123'
     };
-
-    // Role selection
     document.querySelectorAll('.role-btn').forEach(btn => {
       btn.addEventListener('click', function() {
         document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
         selectedRole = this.dataset.role;
-
-        // Update test credentials display
         testCredsBox.style.display = 'block';
         credsText.textContent = testCreds[selectedRole];
-        
-        // Update label and show/hide register link
         if (selectedRole === 'customer' || selectedRole === 'rider') {
           credsLabel.textContent = 'Test Account:';
           registerLink.style.display = 'block';
@@ -115,8 +107,6 @@
           credsLabel.textContent = 'Main Account:';
           registerLink.style.display = 'none';
         }
-
-        // Admin/Owner login: password-only (no email)
         if (selectedRole === 'admin' || selectedRole === 'owner') {
           emailGroup.style.display = 'none';
           emailInput.required = false;
@@ -131,11 +121,7 @@
         }
       });
     });
-
-    // Show test credentials on initial load (customer is default)
     testCredsBox.style.display = 'block';
-
-    // Form submission
     document.getElementById('login-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       const email = document.getElementById('email').value.trim();
@@ -152,8 +138,6 @@
         errorMsg.style.display = 'block';
         return;
       }
-
-      // Show loading state
       const submitBtn = document.querySelector('.login-btn');
       const originalText = submitBtn.textContent;
       submitBtn.textContent = '⏳ Signing in...';
@@ -175,8 +159,6 @@
         if (result.success) {
           errorMsg.style.display = 'none';
           errorMsg.textContent = result.message;
-          
-          // Redirect after brief delay
           setTimeout(() => {
             window.location.href = result.redirect;
           }, 500);
@@ -195,7 +177,6 @@
     });
   </script>
   <script>
-    // Apply site meta if available in other tabs
     (function(){
       function applySiteMeta(meta) {
         if (!meta) return;

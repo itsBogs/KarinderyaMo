@@ -1,10 +1,10 @@
 <?php
-// orders.php - Display all orders from database with admin actions
+
 require_once __DIR__ . '/db.php';
 
 session_start();
 
-// Handle admin actions
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
     $order_id = $_POST['order_id'] ?? null;
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $pdo = getPDO();
         
         if ($action === 'approve' && $order_id) {
-            // This handles both COD 'pending' and online 'pending_payment'
+
             $stmt = $pdo->prepare('UPDATE orders SET status = "approved" WHERE id = ? AND (status = "pending" OR status = "pending_payment")');
             $stmt->execute([$order_id]);
             $success_message = 'Order approved! It is now ready for rider assignment in the Delivery section.';
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $success_message = 'Order rejected successfully.';
         }
 
-        // AJAX response for success
+
         if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
             echo json_encode(['success' => true, 'message' => $success_message]);
             exit;
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             echo json_encode(['success' => false, 'message' => 'Database error: ' . $e->getMessage()]);
             exit;
         }
-        // For non-AJAX, the error will just prevent the success message from showing
+
     }
 }
 
@@ -160,7 +160,7 @@ try {
 </div>
 
 <script>
-// This script runs when orders.php is loaded standalone (not via admin_dashboard)
+
 if (typeof handleOrderAction === 'undefined') {
     function handleOrderAction(orderId, action) {
         const formData = new FormData();

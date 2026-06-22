@@ -1,12 +1,12 @@
 
 <?php
-// db.php - simple PDO connection helper for Karinderya Mo
-// Adjust the DSN, user and password to match your local setup.
-// Update these to your hosting MySQL credentials (not FTP). Example:
-// define('DB_HOST', 'sql100.byetcluster.com');
-// define('DB_NAME', 'ezyro_40605877_karinderya_mo');
-// define('DB_USER', 'ezyro_40605877');
-// define('DB_PASS', 'your_mysql_password');
+
+
+
+
+
+
+
 define('DB_HOST', '127.0.0.1');
 define('DB_NAME', 'karinderya_mo');
 define('DB_USER', 'root');

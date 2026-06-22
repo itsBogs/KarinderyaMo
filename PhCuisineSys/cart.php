@@ -1,17 +1,17 @@
 <?php
-// cart.php - Shopping Cart with Checkout
+
 require 'db.php';
 
 session_start();
 require_once __DIR__ . '/includes/settings.php';
 
-// Check if user is logged in
+
 if (!isset($_SESSION['user_id'])) {
     header('Location: main/login.html');
     exit;
 }
 
-// Only customers can checkout - redirect admin/rider/owner to their dashboards
+
 if (in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'])) {
     if ($_SESSION['user_role'] === 'rider') {
         header('Location: rider_panel.php');
@@ -25,7 +25,7 @@ $pdo = getPDO();
 $user_id = $_SESSION['user_id'];
 $wallet_user_id = $_SESSION['bank_unlocked_user_id'] ?? $user_id;
 
-// Get customer details
+
 $userStmt = $pdo->prepare('SELECT * FROM users WHERE id = ? AND role = "customer"');
 $userStmt->execute([$user_id]);
 $customer = $userStmt->fetch();
@@ -34,14 +34,14 @@ if (!$customer) {
     die('❌ Unauthorized access. Customers only.');
 }
 
-// Get wallet balance (use unlocked wallet if any)
+
 try {
     $walletStmt = $pdo->prepare('SELECT balance FROM wallet WHERE user_id = ?');
     $walletStmt->execute([$wallet_user_id]);
     $wallet = $walletStmt->fetch();
     $wallet_balance = $wallet ? $wallet['balance'] : 0.00;
     
-    // Create wallet if it doesn't exist
+
     if (!$wallet) {
         $createWallet = $pdo->prepare('INSERT INTO wallet (user_id, balance) VALUES (?, 0.00)');
         $createWallet->execute([$wallet_user_id]);
@@ -190,7 +190,7 @@ if ($wallet_user_id !== $user_id) {
             <span class="site-name"><?php echo htmlspecialchars(get_setting('site_name', 'Karinderya Mo')); ?></span> - <?php echo htmlspecialchars(get_setting('site_description', 'Lasapin ang sarap Pinoy!')); ?>
         </footer>
 
-        <!-- QR Modal -->
+        
         <div id="qr-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:9999; align-items:center; justify-content:center;">
             <div style="background:#fff; padding:16px; border-radius:10px; box-shadow:0 12px 30px rgba(0,0,0,0.25); max-width:90vw; max-height:90vh;">
                 <div style="text-align:right; margin-bottom:6px;"><button id="qr-modal-close" style="border:none; background:none; font-size:18px; cursor:pointer;">✕</button></div>
@@ -218,12 +218,12 @@ if ($wallet_user_id !== $user_id) {
 
         let cart = JSON.parse(localStorage.getItem('cart')) || {};
 
-        // Check if coming from Buy Now
+
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('buynow') === '1') {
             const buyNowData = JSON.parse(localStorage.getItem('buyNowData') || 'null');
             if (buyNowData) {
-                // Clear cart and add only the Buy Now product
+
                 cart = {};
                 const product = buyNowData.product;
                 const key = String(product.id);
@@ -236,7 +236,7 @@ if ($wallet_user_id !== $user_id) {
                     qty: buyNowData.quantity
                 };
                 
-                // Set payment method + channel
+
                 const pm = buyNowData.paymentMethod || 'wallet';
                 const pc = buyNowData.paymentChannel || 'gcash';
                 const pmRadio = document.querySelector(`input[name="payment_method"][value="${pm}"]`);
@@ -247,15 +247,15 @@ if ($wallet_user_id !== $user_id) {
                 updateQRImage();
                 checkWalletBalance();
                 
-                // Clear the buyNowData
+
                 localStorage.removeItem('buyNowData');
                 
-                // Update URL to remove buynow parameter
+
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
         }
 
-        // Update Cart Badge
+
         function updateCartBadge() {
             const totalQty = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
             localStorage.setItem('cart', JSON.stringify(cart));
@@ -263,7 +263,7 @@ if ($wallet_user_id !== $user_id) {
             if (cartCountEl) cartCountEl.textContent = totalQty;
         }
 
-        // Render Cart
+
         function renderCart() {
             const items = Object.values(cart);
             cartListEl.innerHTML = '';
@@ -317,7 +317,7 @@ if ($wallet_user_id !== $user_id) {
                 cartListEl.appendChild(row);
             });
 
-            // Attach quantity buttons
+
             cartListEl.querySelectorAll('.dec').forEach(b => {
                 b.addEventListener('click', () => changeQty(Number(b.dataset.id), -1));
             });
@@ -325,7 +325,7 @@ if ($wallet_user_id !== $user_id) {
                 b.addEventListener('click', () => changeQty(Number(b.dataset.id), +1));
             });
 
-            // Add shipping fee display
+
             const shippingFee = 58;
             const grandTotal = total + shippingFee;
             
@@ -353,13 +353,13 @@ if ($wallet_user_id !== $user_id) {
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartBadge();
             
-            // Check wallet balance when cart changes
+
             if (typeof checkWalletBalance === 'function') {
                 checkWalletBalance();
             }
         }
 
-        // Change Quantity
+
         function changeQty(id, delta) {
             const key = String(id);
             if (!cart[key]) return;
@@ -368,17 +368,17 @@ if ($wallet_user_id !== $user_id) {
             renderCart();
         }
 
-        // Clear Cart (use AJAX + inline toast, avoid blocking alert())
+
         if (clearBtn) {
             clearBtn.addEventListener('click', () => {
-                // Call server endpoint (no-op if server has no server-side cart)
+
                 fetch('api/clear_cart.php', { method: 'POST', credentials: 'same-origin' })
                 .then(r => r.ok ? r.json() : Promise.reject('server'))
                 .then(data => {
-                    // Clear local cart and re-render
+
                     cart = {};
                     renderCart();
-                    // Prefer existing showMessage if available
+
                     if (typeof showMessage === 'function') {
                         showMessage('✅ Cart cleared', 'success');
                     } else {
@@ -395,7 +395,7 @@ if ($wallet_user_id !== $user_id) {
             });
         }
 
-        // Handle wallet balance validation and payment UI
+
         const walletWarning = document.getElementById('wallet-warning');
         const walletBalance = <?= $wallet_balance ?>;
 
@@ -471,7 +471,7 @@ if ($wallet_user_id !== $user_id) {
         updateQRImage();
         checkWalletBalance();
 
-        // Checkout Form
+
         document.getElementById('checkout-form').addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -485,7 +485,7 @@ if ($wallet_user_id !== $user_id) {
             const paymentChannel = document.querySelector('input[name="payment_channel"]:checked')?.value || '';
             const paymentProofFile = paymentProofInput?.files?.[0] || null;
 
-            // Validate wallet balance for wallet payments
+
             if (paymentMethodSelected === 'wallet') {
                 const subtotal = items.reduce((sum, item) => sum + (item.price * item.qty), 0);
                 const shippingFee = 58;
@@ -502,7 +502,7 @@ if ($wallet_user_id !== $user_id) {
                 return;
             }
 
-            // Build FormData payload for multipart request (supports file upload)
+
             const formData = new FormData();
             formData.append('delivery_address', document.getElementById('delivery_address').value);
             formData.append('payment_method', paymentMethodSelected);
@@ -561,10 +561,10 @@ if ($wallet_user_id !== $user_id) {
             }, 5000);
         }
 
-        // Initialize
+
         renderCart();
 
-        // Sync across tabs
+
         window.addEventListener('storage', () => {
             cart = JSON.parse(localStorage.getItem('cart')) || {};
             renderCart();

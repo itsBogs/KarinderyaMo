@@ -1,9 +1,9 @@
 <?php
-/**
- * Migration Script: Fix Duplicate Deliveries
- * 1. Removes duplicate delivery records (keeping the latest one)
- * 2. Adds UNIQUE constraint on order_id to prevent future duplicates
- */
+
+
+
+
+
 
 require_once __DIR__ . '/db.php';
 
@@ -12,7 +12,7 @@ try {
     
     echo "<h3>Fixing Duplicate Deliveries...</h3>";
     
-    // 1. Identify duplicates
+
     $sql = "
         SELECT order_id, COUNT(*) as count 
         FROM deliveries 
@@ -27,12 +27,12 @@ try {
     foreach ($duplicates as $dup) {
         $order_id = $dup['order_id'];
         
-        // Get all delivery records for this order, ordered by ID desc (latest first)
+
         $stmt = $pdo->prepare("SELECT id FROM deliveries WHERE order_id = ? ORDER BY id DESC");
         $stmt->execute([$order_id]);
         $ids = $stmt->fetchAll(PDO::FETCH_COLUMN);
         
-        // Keep the first one (latest), delete the rest
+
         $keep_id = array_shift($ids);
         
         if (!empty($ids)) {
@@ -44,8 +44,8 @@ try {
     
     echo "<br>Duplicates removed. Adding UNIQUE constraint...<br>";
     
-    // 2. Add UNIQUE constraint
-    // Check if index already exists to avoid error
+
+
     $checkIndex = $pdo->query("SHOW INDEX FROM deliveries WHERE Key_name = 'order_id_unique'");
     if ($checkIndex->rowCount() == 0) {
         try {

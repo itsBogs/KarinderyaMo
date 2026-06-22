@@ -1,5 +1,5 @@
 <?php
-// users.php - registration form and users list (fragment for admin panel)
+
 require_once __DIR__ . '/db.php';
 session_start();
 
@@ -7,7 +7,7 @@ $errors = [];
 $success = '';
 $roles = ['rider','customer'];
 
-// Handle status toggle (activate/deactivate)
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'toggle_status') {
   $userId = intval($_POST['user_id'] ?? 0);
   $targetStatus = $_POST['target_status'] === 'inactive' ? 'inactive' : 'active';
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'toggl
   }
 }
 
-// Handle create account POST
+
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'create_user'){
     $name = trim($_POST['name'] ?? '');
     $email = strtolower(trim($_POST['email'] ?? ''));
@@ -54,11 +54,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['a
             if($stmt->fetch()){
                 $errors[] = 'An account with that email already exists.';
             }else{
-                // Insert without hashing - plain text password
+
                 $stmt = $pdo->prepare('INSERT INTO users (name, email, password, role, status) VALUES (?, ?, ?, ?, ?)');
                 $stmt->execute([$name, $email, $password, $role, 'active']);
                 $success = 'Account created successfully!';
-                // clear POST values for form
+
                 $_POST = [];
             }
         }catch(Exception $e){
@@ -67,7 +67,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['a
     }
 }
 
-// Fetch users for listing
+
 try{
     $pdo = getPDO();
     $stmt = $pdo->query('SELECT id,name,email,role,status,created_at FROM users ORDER BY id DESC');

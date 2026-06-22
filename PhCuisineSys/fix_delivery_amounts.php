@@ -1,18 +1,18 @@
 <?php
-/**
- * Migration Script: Fix Delivery Amounts
- * This script updates all delivery records where amount = 0 or NULL
- * with the correct total_amount from the associated order
- * 
- * Run this ONCE to fix historical data, then can be deleted
- */
+
+
+
+
+
+
+
 
 require_once __DIR__ . '/db.php';
 
 try {
     $pdo = getPDO();
     
-    // Update all deliveries with amount = 0 or NULL to use order's total_amount
+
     $sql = "
         UPDATE deliveries d
         INNER JOIN orders o ON d.order_id = o.id
@@ -28,7 +28,7 @@ try {
     echo "✅ Migration Complete!<br>";
     echo "Updated {$rowsUpdated} delivery records with correct amounts from orders.<br><br>";
     
-    // Show summary
+
     echo "<strong>Updated Records:</strong><br>";
     $summary = $pdo->query("
         SELECT 

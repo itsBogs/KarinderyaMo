@@ -2,13 +2,13 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-// Load settings helper for dynamic site name
+
 require_once __DIR__ . '/includes/settings.php';
-// Allow guest browsing
-// Redirect to login if trying to checkout without session
+
+
 $is_logged_in = isset($_SESSION['user_id']);
 
-// Redirect admin/rider/owner to their dashboards - they cannot order
+
 if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'])) {
     if ($_SESSION['user_role'] === 'rider') {
         header('Location: rider_panel.php');
@@ -28,14 +28,14 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="js/theme-sync.js"></script>
     <style>
-        /* Dagdag na CSS para sa UI improvements, hindi ito lalabas sa design.css */
+        
 
-        /* Softer page backdrop so cards pop */
+        
         body {
             background: radial-gradient(circle at top left, var(--bg, #fff7e4) 0%, var(--muted, #f7f1e6) 45%, var(--card, #f8f4ed) 100%);
         }
 
-        /* Inline toast for login reminders (replaces browser alert) */
+        
         .login-toast {
             position: fixed;
             top: 18px;
@@ -68,7 +68,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
             cursor: pointer;
         }
 
-        /* Section containers to separate from backdrop */
+        
         .products-container {
             padding: 28px 18px 36px;
             gap: 26px;
@@ -82,9 +82,9 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
             box-shadow: 0 18px 36px rgba(0,0,0,0.06);
         }
 
-        /* Mas propesyonal na Search Input */
+        
         header input.search {
-            background-color: var(--card); /* White background */
+            background-color: var(--card); 
             border: 1px solid var(--muted);
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             transition: border-color 0.2s;
@@ -94,13 +94,13 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
             box-shadow: 0 1px 6px rgba(0,0,0,0.1);
         }
         
-        /* Cart Count Styling */
+        
         .cart-count {
             position: absolute;
             top: -5px;
             right: -5px;
-            background-color: var(--strong-accent); /* Dark Yellow/Gold dot */
-            color: var(--card); /* White text */
+            background-color: var(--strong-accent); 
+            color: var(--card); 
             border-radius: 50%;
             padding: 1px 6px;
             font-size: 10px;
@@ -111,22 +111,22 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
             border: 1px solid var(--card);
         }
         
-        /* Icon Button (Wrapper para sa cart count) */
+        
         header .actions .icon-btn {
-            position: relative; /* Para sa cart-count */
-            padding: 10px 14px; /* Mas malaki, mas madaling i-click */
+            position: relative; 
+            padding: 10px 14px; 
             font-size: 16px;
         }
 
-        /* User Info Styling */
+        
         .user-info {
             display:flex; 
             align-items:center; 
             gap:10px;
-            background-color: var(--accent-2); /* Secondary accent color */
+            background-color: var(--accent-2); 
             padding: 8px 12px;
             border-radius: var(--radius);
-            color: var(--text); /* Dark text on light accent */
+            color: var(--text); 
             font-weight: 600;
         }
         
@@ -135,34 +135,34 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
             white-space: nowrap;
         }
         
-        /* Separator sa Main Content - Mas gusto natin ito sa CSS file, pero iiwan muna dito */
+        
         .products-container > .products-section:not(:last-child) {
             border-bottom: 2px dashed var(--muted);
             padding-bottom: 30px;
             margin-bottom: 30px;
         }
         
-        /* Section Title alignment */
+        
         .products-section .section-title {
-            display: block; /* Para mas masakop ang area */
+            display: block; 
             width: 100%;
             text-align: left;
-            padding-left: 5px; /* Konting spacing */
-            margin-bottom: 18px; /* Dagdag space sa pagitan ng title at cards */
+            padding-left: 5px; 
+            margin-bottom: 18px; 
             font-size: 20px;
             color: #b25a00;
             letter-spacing: 0.2px;
         }
-        /* Bagong style para sa pag-alis ng horizontal scroll at pag-display ng grid */
+        
         .menu.grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
-            gap: 20px; /* Dagdag space sa pagitan ng cards */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 20px; 
             padding: 0;
-            overflow-x: unset; /* Alisin ang horizontal scroll */
+            overflow-x: unset; 
         }
 
-        /* Card animation and hover pop */
+        
         .menu.grid .card {
             position: relative;
             overflow: hidden;
@@ -209,7 +209,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* Gentle floating animation for product visuals */
+        
         @keyframes floaty {
             0% { transform: translateY(0) translateX(0); }
             25% { transform: translateY(-6px) translateX(-2px); }
@@ -227,7 +227,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
         }
 
 
-        /* ===== PRODUCT PREVIEW MODAL ===== */
+        
         .product-preview-modal {
             display: none;
             position: fixed;
@@ -394,7 +394,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
         </section>
 
 <main class="products-container" id="products-container">
-    <!-- Sections will be rendered dynamically -->
+    
 </main>
 
         <footer>
@@ -402,10 +402,10 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
         </footer>
     </div>
 
-    <!-- Product Preview Modal - Buy Now Direct Checkout -->
+    
     <div id="productPreviewModal" class="product-preview-modal">
         <div class="product-preview-content" style="max-width: 1000px; max-height: 90vh; overflow-y: auto; padding: 0; border-radius: 16px; background: white; box-shadow: 0 20px 60px rgba(0,0,0,0.3); display: flex;">
-            <!-- Left Column - Product -->
+            
             <div style="flex: 0 0 40%; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(135deg, #fff9f7 0%, #fff5f0 100%); border-right: 2px solid #FFD4B8; border-radius: 16px 0 0 16px;">
                 <div style="text-align: center; width: 100%;">
                     <div class="product-preview-image" style="margin-bottom: 15px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; height: 200px;">
@@ -417,7 +417,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
                     
                     <div id="previewPrice" style="font-size: 28px; font-weight: 900; color: #FF8B54; margin-bottom: 16px; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">₱0.00</div>
                     
-                    <!-- Quantity Selector -->
+                    
                     <div style="margin: 0; padding: 14px; background: white; border-radius: 10px; border: 2px solid #FFD4B8; width: 100%;">
                         <label style="display: block; font-weight: 700; margin-bottom: 10px; font-size: 12px; color: #333; text-transform: uppercase; letter-spacing: 0.5px;">📦 Quantity</label>
                         <div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
@@ -427,7 +427,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
                         </div>
                     </div>
 
-                    <!-- Order Summary -->
+                    
                     <div style="margin: 16px 0 0 0; padding: 14px; background: white; border-radius: 10px; border: 2px solid #FFD4B8; width: 100%;">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 12px; color: #666;">
                             <span style="font-weight: 600;">Unit Price:</span>
@@ -449,15 +449,15 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
                 </div>
             </div>
 
-            <!-- Right Column - Form -->
+            
             <div style="flex: 0 0 60%; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; border-radius: 0 16px 16px 0; position: relative;">
-                <!-- Header -->
+                
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #FFD4B8;">
                     <h2 style="margin: 0; font-size: 18px; font-weight: 700; color: #333;">🛒 Complete Your Order</h2>
                     <button type="button" onclick="closePreview()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #999; padding: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">✕</button>
                 </div>
 
-                <!-- Delivery Form - Two Columns -->
+                
                 <form id="buyNowForm" style="flex: 1; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; padding-right: 8px;">
                     <h4 style="margin: 0 0 8px 0; font-size: 12px; color: #333; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">📍 Delivery Details</h4>
                     
@@ -524,7 +524,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
 
                 <div id="buyNowMessage" style="padding: 10px; margin: 8px 0; border-radius: 6px; display: none; font-size: 11px; font-weight: 600; border: 2px solid; text-align: center;"></div>
 
-                <!-- Buttons -->
+                
                 <div style="display: flex; gap: 10px; margin-top: 12px;">
                     <button type="button" id="buyNowSubmit" style="flex: 1; padding: 12px; background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); color: white; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(76,175,80,0.25); display: flex; align-items: center; justify-content: center; gap: 6px;">✓ Order Now</button>
                     <button type="button" onclick="closePreview()" style="flex: 1; padding: 12px; background: #e0e0e0; color: #333; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.2s ease;">Cancel</button>
@@ -534,7 +534,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
     </div>
 
     <script>
-        // --- JS LOGIC STARTS HERE (Updated to reduced categories and add image logic) ---
+
         let menuData = {};
         let lastMenuSnapshot = '';
         const defaultDescriptions = {
@@ -553,7 +553,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
     'Chopsuey': 'Colorful medley of cabbage, broccoli, carrots, and cauliflower stir-fried in a light, savory sauce with tender meat pieces or shrimp.'
         };
         let cart = JSON.parse(localStorage.getItem('cart')) || {};
-        // Flag to gate ordering flows when the user is not logged in
+
         const IS_LOGGED_IN = <?php echo $is_logged_in ? 'true' : 'false'; ?>;
         let isLoggedInState = IS_LOGGED_IN;
         const LOGIN_PAGE = 'main/login.html';
@@ -564,7 +564,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
                 const data = await response.json();
 
                 const snapshot = JSON.stringify(data);
-                if (snapshot === lastMenuSnapshot) return; // avoid re-render flicker
+                if (snapshot === lastMenuSnapshot) return; 
 
                 lastMenuSnapshot = snapshot;
                 menuData = data;
@@ -610,9 +610,24 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
         
         function generateImagePath(productName) {
             if (!productName) return null;
-            
+
             const correctedFilename = productName.replace(/\s/g, '-') + '.jpg';
             return `images/${correctedFilename}`;
+        }
+
+        function normalizeImagePath(imagePath, productName) {
+            let path = imagePath && String(imagePath).trim()
+                ? String(imagePath).trim()
+                : generateImagePath(productName);
+
+            if (!path) return null;
+            if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('//') || path.startsWith('data:')) return path;
+
+            path = path.replace(/\\/g, '/');
+            if (path.startsWith('./')) path = path.slice(2);
+            path = path.replace(/^\/+/, '');
+
+            return encodeURI(path);
         }
         
         function renderMenuByCategory() {
@@ -642,12 +657,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
                     card.className = 'card';
                     card.style.animation = `fadeUp 0.45s ease ${idx * 0.05}s both`;
 
-                    let imagePath = item.image || generateImagePath(item.name);
-                    if (imagePath && imagePath.startsWith('http')) {
-                        // leave as is
-                    } else if (imagePath && imagePath[0] !== '/') {
-                        imagePath = '/' + imagePath;
-                    }
+                    const imagePath = normalizeImagePath(item.image, item.name);
 
                     const imgTag = imagePath
                         ? `<img src="${imagePath}" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><text y=\'.9em\' font-size=\'90\'>🍽️</text></svg>'" alt="${item.name}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius);">`
@@ -671,7 +681,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
                 });
             });
 
-            // Add event listeners for all buttons
+
             container.querySelectorAll('button.btn').forEach(b => {
                 b.addEventListener('click', () => {
                     const id = Number(b.dataset.id);
@@ -687,7 +697,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
         }
 
         async function addToCart(id) {
-            // Require login before allowing add-to-cart
+
             const ok = await ensureLoggedIn();
             if (!ok) return;
 
@@ -703,7 +713,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
             updateCartCount();
         }
         
-        // Logic for Buy Now
+
         function resetCart() {
             cart = {};
             saveCart();
@@ -722,16 +732,16 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
 
             selectedProductForBuy = item;
             
-            // Get image path
-            const imagePath = item.image || generateImagePath(item.name);
+
+            const imagePath = normalizeImagePath(item.image, item.name);
             
-            // Set modal content
+
             document.getElementById('previewImage').src = imagePath;
             document.getElementById('previewName').textContent = item.name;
             document.getElementById('previewDesc').textContent = item.description || defaultDescriptions[item.name] || 'Masarap na pagkaing Pinoy.';
             document.getElementById('previewPrice').textContent = '₱' + parseFloat(item.price).toFixed(2);
             
-            // Show modal
+
             document.getElementById('productPreviewModal').classList.add('active');
         }
 
@@ -748,7 +758,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
             
             const paymentChannel = document.querySelector('input[name="buyNowChannel"]:checked')?.value || 'gcash';
 
-            // Store Buy Now data (includes channel)
+
             localStorage.setItem('buyNowData', JSON.stringify({
                 product: selectedProductForBuy,
                 quantity: quantity,
@@ -772,7 +782,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
             toggleBuyNowPayment();
             updateBuyNowTotal();
             
-            // Fetch and auto-fill customer info
+
             fetch('api/get_user_info.php')
                 .then(response => response.json())
                 .then(data => {
@@ -805,33 +815,33 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
             });
         }
 
-        // Search functionality
+
         document.getElementById('search-input').addEventListener('keyup', applySearchFilter);
 
-        // Initialize
+
         loadMenu();
-        setInterval(loadMenu, 1000); // poll every second for near real-time updates
+        setInterval(loadMenu, 1000); 
         updateCartCount();
 
         window.addEventListener('storage', () => {
             updateCartCount();
         });
 
-        // Close modal when clicking outside of it
+
         document.getElementById('productPreviewModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closePreview();
             }
         });
 
-        // Close modal with Escape key
+
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closePreview();
             }
         });
 
-        // Quantity controls for Buy Now
+
         document.getElementById('qtyMinus').addEventListener('click', (e) => {
             e.preventDefault();
             const input = document.getElementById('buyNowQty');
@@ -854,13 +864,13 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
 
         document.getElementById('buyNowQty').addEventListener('change', updateBuyNowTotal);
 
-        // Update total price for Buy Now
+
         function updateBuyNowTotal() {
             if (!selectedProductForBuy) return;
             const qty = parseInt(document.getElementById('buyNowQty').value) || 1;
             const price = parseFloat(selectedProductForBuy.price) || 0;
             const subtotal = price * qty;
-            const shippingFee = 58; // ₱58 shipping fee
+            const shippingFee = 58; 
             const grandTotal = subtotal + shippingFee;
 
             document.getElementById('unitPrice').textContent = price.toFixed(2);
@@ -868,14 +878,14 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
             document.getElementById('shipFee').textContent = shippingFee.toFixed(2);
             document.getElementById('totalPrice').textContent = grandTotal.toFixed(2);
             
-            // Recheck wallet balance if wallet payment is selected
+
             const isWallet = document.querySelector('input[name="buyNowPayment"][value="wallet"]').checked;
             if (isWallet) {
                 checkBuyNowWalletBalance();
             }
         }
 
-        // Toggle payment info display
+
         function toggleBuyNowPayment() {
             const walletInfo = document.getElementById('buyNowWalletInfo');
             const walletWarning = document.getElementById('buyNowWalletWarning');
@@ -901,15 +911,15 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
                 walletWarning.style.display = 'none';
                 if (digitalOptions) digitalOptions.style.display = 'none';
                 if (proofInput) proofInput.required = false;
-                if (submitBtn) submitBtn.disabled = false; // allow COD even if wallet is empty
+                if (submitBtn) submitBtn.disabled = false; 
             }
         }
 
-        // Check wallet balance for Buy Now
+
         function checkBuyNowWalletBalance() {
             if (!selectedProductForBuy) return;
             const isWallet = document.querySelector('input[name="buyNowPayment"][value="wallet"]').checked;
-            if (!isWallet) return; // only enforce for wallet payments
+            if (!isWallet) return; 
             
             const quantity = parseInt(document.getElementById('buyNowQty').value) || 1;
             const price = parseFloat(selectedProductForBuy.price);
@@ -943,7 +953,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
             radio.addEventListener('change', toggleBuyNowPayment);
         });
 
-        // Swap QR when channel changes
+
         document.querySelectorAll('input[name="buyNowChannel"]').forEach(radio => {
             radio.addEventListener('change', () => {
                 const channel = document.querySelector('input[name="buyNowChannel"]:checked')?.value;
@@ -954,7 +964,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
             });
         });
 
-        // Enlarge QR on click (reuse a lightweight overlay)
+
         document.getElementById('buyNowQRImage')?.addEventListener('click', () => {
             const src = document.getElementById('buyNowQRImage').src;
             const overlayId = 'buyNowQrOverlay';
@@ -978,7 +988,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
             overlay.style.display = 'flex';
         });
 
-        // Handle Buy Now form submission
+
         document.getElementById('buyNowSubmit').addEventListener('click', async (e) => {
             e.preventDefault();
 
@@ -990,7 +1000,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
             const ok = await ensureLoggedIn();
             if (!ok) return;
 
-            // Validate inputs
+
             const name = document.getElementById('buyNowName').value.trim();
             const phone = document.getElementById('buyNowPhone').value.trim();
             const address = document.getElementById('buyNowAddress').value.trim();
@@ -1011,7 +1021,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
                 return;
             }
             
-            // Validate wallet balance
+
             if (paymentMethod === 'wallet') {
                 const price = parseFloat(selectedProductForBuy.price);
                 const shippingFee = 58;
@@ -1151,7 +1161,7 @@ if ($is_logged_in && in_array($_SESSION['user_role'], ['admin', 'rider', 'owner'
                 }, 3000);
             }
         }
-        // --- JS LOGIC ENDS HERE ---
+
     </script>
 </body>
 </html>

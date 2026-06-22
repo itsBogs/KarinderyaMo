@@ -7,15 +7,15 @@ try {
     $stmt = $pdo->query('SELECT id, name, category, price, availability, image FROM menu_items ORDER BY category, name');
     $items = $stmt->fetchAll();
 
-    // Normalize image paths for client display
+
     foreach ($items as &$item) {
         $img = $item['image'] ?? '';
         if ($img) {
             if (stripos($img, 'http') === 0) {
-                // leave absolute URLs
+
                 $item['image'] = $img;
             } else {
-                // ensure leading slash for relative paths
+
                 $item['image'] = ($img[0] === '/') ? $img : '/' . $img;
             }
         }

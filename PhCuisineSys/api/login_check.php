@@ -1,5 +1,5 @@
 <?php
-// api/login_check.php - Verify if user is logged in (for AJAX calls)
+
 session_start();
 
 header('Content-Type: application/json');

@@ -1,5 +1,5 @@
 <?php
-// Placeholder: Rider help / FAQ
+
 ?>
 <div class="container-fluid">
   <div class="d-flex justify-content-between align-items-center mb-3">

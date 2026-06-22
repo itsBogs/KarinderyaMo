@@ -1,5 +1,5 @@
 <?php
-// theme_json.php - returns theme colors as JSON
+
 require_once __DIR__ . '/db.php';
 header('Content-Type: application/json');
 header('Cache-Control: no-store, must-revalidate, max-age=0');
@@ -27,7 +27,7 @@ try {
         }
     }
 } catch (Exception $e) {
-    // ignore and use defaults
+
 }
 
 echo json_encode([
@@ -36,7 +36,7 @@ echo json_encode([
     'bg'        => $values['theme_bg_color'],
     'muted'     => $values['theme_muted_color'],
     'text'      => $values['theme_text_color'],
-    // Include site metadata so clients on different origins/ports can fetch it
+
     'site_name' => (isset($values['site_name']) ? $values['site_name'] : null),
     'site_description' => (isset($values['site_description']) ? $values['site_description'] : null),
     'version'   => time()

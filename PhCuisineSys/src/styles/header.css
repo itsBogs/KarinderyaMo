@@ -21,8 +21,8 @@ header {
     
     font-weight: bold;
     
-    /* Gagamitin ang text-shadow para gumawa ng 1px na black outline (stroke) */
-    /* text-shadow: <offset-x> <offset-y> <blur-radius> <color> */
+    
+    
     text-shadow: 
         1px 1px 0 #000, 
         -1px 1px 0 #000, 

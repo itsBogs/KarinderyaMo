@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-// Restrict access
+
 $role = $_SESSION['user_role'] ?? '';
 if (!in_array($role, ['admin','owner'], true)) {
   header('Location: main/login.html');
@@ -97,10 +97,10 @@ body, html {
   box-shadow: 0 6px 14px rgba(233, 162, 9, 0.4);
 }
 
-/* Keep toggle button visible when sidebar collapsed */
+
 .app.collapsed #toggleSidebarBtn { left: 20px; }
 
-/* Mobile Responsive Styles */
+
 @media (max-width: 768px) {
   .app {
     flex-direction: column;
@@ -201,7 +201,7 @@ body, html {
 </button>
 
 <div class="app">
-  <!-- Sidebar -->
+  
   <aside class="sidebar">
     <div class="brand d-flex align-items-center gap-2 mb-3">
       <div class="logo" style="background: linear-gradient(135deg, var(--accent), var(--strong-accent)); width: 46px; height: 46px; border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 16px;">KM</div>
@@ -264,27 +264,27 @@ body, html {
     </nav>
   </aside>
 
-  <!-- Main panel -->
+  
   <main class="main" id="mainContent">
     <?php include 'dashboard.php'; ?>
   </main>
 </div>
 
-<!-- Toast for AJAX feedback -->
+
 <div id="admin-toast" style="position:fixed;top:18px;right:18px;z-index:3000;display:none;background:#1f2937;color:#f9fafb;padding:12px 16px;border-radius:10px;box-shadow:0 12px 28px rgba(0,0,0,0.3);font-size:13px;font-weight:500;min-width:250px;"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 <script>
-// Global variable to track current page
+
 const userRole = '<?=$role?>';
 const ownerAllowedPages = ['dashboard.php','admin_customers_section.php','sales-reports.php'];
 let currentPage = 'dashboard.php';
 let ordersPollId = null;
 let isOrdersRefreshing = false;
 
-// Toast notification function
+
 function showToast(message, type = 'success') {
     const toast = document.getElementById('admin-toast');
     if (!toast) return;
@@ -303,11 +303,11 @@ function showToast(message, type = 'success') {
     }, 3000);
 }
 
-// Sidebar toggle functionality
+
 const toggleBtn = document.getElementById('toggleSidebarBtn');
 const app = document.querySelector('.app');
 if (toggleBtn && app) {
-    // Start with collapsed sidebar on mobile
+
     if (window.innerWidth <= 768) {
         app.classList.add('collapsed');
     }
@@ -316,7 +316,7 @@ if (toggleBtn && app) {
         app.classList.toggle('collapsed');
     });
     
-    // Close sidebar when clicking outside on mobile
+
     if (window.innerWidth <= 768) {
         app.addEventListener('click', (e) => {
             if (!app.classList.contains('collapsed') && 
@@ -328,7 +328,7 @@ if (toggleBtn && app) {
     }
 }
 
-// Function to load pages via AJAX
+
 function loadPage(page) {
     if (!page) return;
 
@@ -350,7 +350,7 @@ function loadPage(page) {
         })
         .then(html => {
           mainContent.innerHTML = html;
-          // Execute scripts in loaded content first so inline scripts can attach handlers
+
           const scripts = mainContent.querySelectorAll('script');
           scripts.forEach(oldScript => {
             const newScript = document.createElement('script');
@@ -361,7 +361,7 @@ function loadPage(page) {
             }
             oldScript.parentNode.replaceChild(newScript, oldScript);
           });
-          // Then attach generic form handlers to any forms not already handled by inline scripts
+
           attachFormHandlers();
         })
         .catch(err => {
@@ -369,7 +369,7 @@ function loadPage(page) {
             console.error('Page load error:', err);
         });
 
-      // Manage auto-refresh for orders
+
       if (page === 'orders.php' && userRole !== 'owner') {
         startOrdersPolling();
       } else {
@@ -377,7 +377,7 @@ function loadPage(page) {
       }
 }
 
-// Function to attach form handlers to all forms in main content
+
 function attachFormHandlers() {
     const mainContent = document.getElementById('mainContent');
     const forms = mainContent.querySelectorAll('form');
@@ -425,7 +425,7 @@ function startOrdersPolling() {
         const mainContent = document.getElementById('mainContent');
         if (currentPage === 'orders.php') {
           mainContent.innerHTML = html;
-          // Execute scripts in refreshed content first
+
           const scripts = mainContent.querySelectorAll('script');
           scripts.forEach(oldScript => {
             const newScript = document.createElement('script');
@@ -452,13 +452,13 @@ function stopOrdersPolling() {
   isOrdersRefreshing = false;
 }
 
-// Reload customer section with optional selection
+
 function reloadCustomerSection(customerId) {
   const url = customerId ? `admin_customers_section.php?customer_id=${customerId}` : 'admin_customers_section.php';
   loadPage(url);
 }
 
-// Menu click handlers
+
 document.addEventListener('DOMContentLoaded', function() {
     const menuItems = document.querySelectorAll('.menu-item');
     
@@ -476,17 +476,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Load initial page
+
     loadPage('dashboard.php');
 });
 
-// Global function for order actions
+
 function handleOrderAction(orderId, action) {
     const formData = new FormData();
     formData.append('order_id', orderId);
     formData.append('action', action);
 
-    // Show loading state
+
     const row = document.getElementById('order-row-' + orderId);
     if (row) row.style.opacity = '0.6';
 
@@ -499,7 +499,7 @@ function handleOrderAction(orderId, action) {
     .then(data => {
         if (data.success) {
             showToast(data.message || `Order ${action}d successfully`, 'success');
-            // Reload the orders page to show updated status
+
             loadPage('orders.php');
         } else {
             showToast(data.message || 'Action failed', 'error');
@@ -513,7 +513,7 @@ function handleOrderAction(orderId, action) {
     });
 }
 
-// Global function for assigning riders (used by delivery.php)
+
 function assignRider(orderId, buttonElement) {
     const select = document.getElementById('rider_' + orderId);
     const riderId = select ? select.value : null;
@@ -523,7 +523,7 @@ function assignRider(orderId, buttonElement) {
         return;
     }
     
-    // Disable button to prevent double-click
+
     if (buttonElement) {
         buttonElement.disabled = true;
         buttonElement.textContent = '⏳ Assigning...';

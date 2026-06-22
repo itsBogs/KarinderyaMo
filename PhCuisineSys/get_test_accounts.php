@@ -6,7 +6,7 @@ try {
     
     echo "=== TEST ACCOUNTS ===\n\n";
     
-    // Get one customer
+
     $stmt = $pdo->query("SELECT email, password FROM users WHERE role = 'customer' LIMIT 1");
     $customer = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($customer) {
@@ -15,7 +15,7 @@ try {
         echo "Customer: (no account found)\n";
     }
     
-    // Get one rider
+
     $stmt = $pdo->query("SELECT email, password FROM users WHERE role = 'rider' LIMIT 1");
     $rider = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($rider) {

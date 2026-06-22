@@ -1,5 +1,5 @@
 <?php
-// includes/settings.php - helper to read site settings from DB and cache them
+
 require_once __DIR__ . '/../db.php';
 
 function load_settings() {
@@ -13,7 +13,7 @@ function load_settings() {
             $cache[$row['key_name']] = $row['value'];
         }
     } catch (Exception $e) {
-        // ignore and continue with defaults
+
     }
     return $cache;
 }

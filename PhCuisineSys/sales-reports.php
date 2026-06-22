@@ -1,5 +1,5 @@
 <?php
-// sales-reports.php - Sales dashboard with payment breakdown and printable report
+
 require_once __DIR__ . '/db.php';
 if (session_status() === PHP_SESSION_NONE) session_start();
 
@@ -12,7 +12,7 @@ $loadError = '';
 try {
   $pdo = getPDO();
 
-  // Aggregate totals (delivered orders only)
+
   $totalStats = $pdo->query("SELECT COUNT(*) as orders, COALESCE(SUM(total_amount),0) as revenue FROM orders WHERE status = 'delivered'")->fetch();
 
   $paymentStatsStmt = $pdo->query("SELECT payment_method, COUNT(*) as orders, COALESCE(SUM(total_amount),0) as revenue FROM orders WHERE status = 'delivered' GROUP BY payment_method");
@@ -50,7 +50,7 @@ function peso($v) { return '₱' . number_format((float)$v, 2); }
   .metric-value { font-size: 22px; font-weight: 800; color: #2b2b2b; }
   .print-hidden { display: inline-block; }
   @media print {
-    /* Only print the sales report content, hide dashboard chrome */
+    
     body * { visibility: hidden; }
     #salesReport, #salesReport * { visibility: visible; }
     #salesReport { position: absolute; left: 0; top: 0; width: 100%; background: #fff; padding: 0; margin: 0; box-shadow: none; border: none; }

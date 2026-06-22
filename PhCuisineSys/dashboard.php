@@ -1,12 +1,12 @@
 <?php
-// dashboard.php - Dynamic admin dashboard with database data
+
 require_once __DIR__ . '/db.php';
-// session_start() - Already started in admin_dashboard.php, don't call it again
+
 
 try {
     $pdo = getPDO();
     
-    // Get statistics
+
     $statsStmt = $pdo->query('SELECT COUNT(*) as total FROM orders');
     $totalOrders = $statsStmt->fetch()['total'];
     
@@ -22,7 +22,7 @@ try {
     $statsStmt = $pdo->query("SELECT COUNT(*) as total FROM orders WHERE status = 'delivered'");
     $completedOrders = $statsStmt->fetch()['total'];
     
-    // Get order status breakdown for pie chart
+
     $statusStmt = $pdo->query("
         SELECT status, COUNT(*) as count 
         FROM orders 
@@ -30,7 +30,7 @@ try {
     ");
     $ordersByStatus = $statusStmt->fetchAll(PDO::FETCH_KEY_PAIR);
     
-    // Get daily revenue for last 7 days for line chart
+
     $revenueStmt = $pdo->query("
         SELECT DATE(created_at) as date, SUM(total_amount) as revenue 
         FROM orders 
@@ -40,7 +40,7 @@ try {
     ");
     $dailyRevenue = $revenueStmt->fetchAll(PDO::FETCH_ASSOC);
     
-    // Get recent orders
+
     $ordersStmt = $pdo->query('
         SELECT o.id, o.order_number, u.name as customer_name, o.total_amount, o.status, o.created_at 
         FROM orders o 
@@ -64,7 +64,7 @@ try {
 
 <div class="container py-3">
   <div class="row g-3">
-    <!-- Card 1: Total Orders -->
+    
     <div class="col-md-3">
       <div class="card shadow-sm p-3" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
         <h6 class="mb-2" style="opacity: 0.9;">📦 Total Orders</h6>
@@ -72,7 +72,7 @@ try {
       </div>
     </div>
 
-    <!-- Card 2: Total Users -->
+    
     <div class="col-md-3">
       <div class="card shadow-sm p-3" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; border: none;">
         <h6 class="mb-2" style="opacity: 0.9;">👥 Total Users</h6>
@@ -80,7 +80,7 @@ try {
       </div>
     </div>
 
-    <!-- Card 3: Total Revenue -->
+    
     <div class="col-md-3">
       <div class="card shadow-sm p-3" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none;">
         <h6 class="mb-2" style="opacity: 0.9;">💰 Total Revenue</h6>
@@ -88,7 +88,7 @@ try {
       </div>
     </div>
 
-    <!-- Card 4: Completed Orders -->
+    
     <div class="col-md-3">
       <div class="card shadow-sm p-3" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; border: none;">
         <h6 class="mb-2" style="opacity: 0.9;">✅ Completed</h6>
@@ -96,7 +96,7 @@ try {
       </div>
     </div>
 
-    <!-- Charts Row -->
+    
     <div class="col-md-5">
       <div class="card shadow-sm p-3 h-100">
         <h5 class="mb-3">📊 Order Status Distribution</h5>
@@ -115,7 +115,7 @@ try {
       </div>
     </div>
     
-    <!-- Recent Orders Table -->
+    
     <div class="col-12 mt-4">
       <div class="card shadow-sm p-3">
         <h5>Recent Orders</h5>
@@ -161,7 +161,7 @@ try {
 
 <script>
 (function() {
-  // Prepare chart data from PHP
+
   const ordersByStatus = <?=json_encode($ordersByStatus)?>;
   const dailyRevenue = <?=json_encode($dailyRevenue)?>;
 
@@ -170,7 +170,7 @@ try {
   console.log('Orders by status:', ordersByStatus);
   console.log('Daily revenue:', dailyRevenue);
 
-  // Wait for Chart.js to be loaded
+
   function initializeCharts() {
     if (typeof Chart === 'undefined') {
       console.log('⏳ Waiting for Chart.js...');
@@ -180,7 +180,7 @@ try {
 
     console.log('✅ Chart.js ready, initializing charts...');
 
-    // Color palette for charts
+
     const chartColors = {
       pending: 'rgba(255, 193, 7, 0.8)',
       approved: 'rgba(13, 202, 240, 0.8)',
@@ -192,7 +192,7 @@ try {
       rejected: 'rgba(220, 53, 69, 0.8)'
     };
 
-    // Destroy existing charts if they exist
+
     const existingPieChart = Chart.getChart('statusPieChart');
     if (existingPieChart) {
       console.log('🗑️ Destroying existing pie chart');
@@ -204,7 +204,7 @@ try {
       existingLineChart.destroy();
     }
 
-    // Pie Chart - Order Status Distribution
+
     const pieCtx = document.getElementById('statusPieChart');
     if (pieCtx && Object.keys(ordersByStatus).length > 0) {
       console.log('📊 Creating pie chart...');
@@ -253,7 +253,7 @@ try {
       pieCtx.parentElement.innerHTML = '<div class="d-flex align-items-center justify-content-center h-100 text-muted">No order data available</div>';
     }
 
-    // Line Chart - Revenue Trend
+
     const lineCtx = document.getElementById('revenueLineChart');
     if (lineCtx && dailyRevenue.length > 0) {
       console.log('📈 Creating line chart...');
@@ -332,7 +332,7 @@ try {
     }
   }
 
-  // Start initialization
+
   initializeCharts();
 })();
 </script>

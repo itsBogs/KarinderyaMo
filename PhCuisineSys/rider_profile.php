@@ -1,5 +1,5 @@
 <?php
-// Fragment: Rider profile
+
 require_once __DIR__ . '/db.php';
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -17,7 +17,7 @@ if (!$user_id || $role !== 'rider') {
 $message = '';
 $message_type = '';
 
-// Handle profile update
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'update_profile') {
   $newName = trim($_POST['name'] ?? '');
   $newEmail = trim($_POST['email'] ?? '');
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'updat
   } else {
     try {
       $pdo = getPDO();
-      // Check if email is taken by another user
+
       $check = $pdo->prepare('SELECT id FROM users WHERE email = ? AND id != ?');
       $check->execute([$newEmail, $user_id]);
       if ($check->fetch()) {
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'updat
 try {
     $pdo = getPDO();
     
-    // Get rider info
+
     $stmt = $pdo->prepare('SELECT id, name, email, phone, created_at FROM users WHERE id = ? AND role = "rider"');
     $stmt->execute([$user_id]);
     $rider = $stmt->fetch();
@@ -70,7 +70,7 @@ try {
         exit;
     }
     
-    // Get rider stats
+
     $statsStmt = $pdo->prepare('SELECT COUNT(*) as total FROM orders WHERE rider_id = ?');
     $statsStmt->execute([$user_id]);
     $total_deliveries = $statsStmt->fetch()['total'];
@@ -102,7 +102,7 @@ try {
 
   <?php if ($rider): ?>
     <div class="row g-3">
-      <!-- Profile Card -->
+      
       <div class="col-md-6">
         <div class="card shadow-sm" style="border-radius: 12px; overflow: hidden;">
           <div style="background: linear-gradient(135deg, var(--accent), var(--strong-accent)); padding: 24px; color: white; text-align: center;">
@@ -149,7 +149,7 @@ try {
         </div>
       </div>
 
-      <!-- Statistics -->
+      
       <div class="col-md-6">
         <div style="display: flex; flex-direction: column; gap: 12px;">
           <div class="card shadow-sm p-3" style="border-left: 4px solid var(--accent); border-radius: 8px;">

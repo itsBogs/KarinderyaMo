@@ -1,11 +1,11 @@
 <?php
-// api/get_order_status.php - Minimal API endpoint for real-time status
-require_once '../db.php'; // Adjust path as necessary
+
+require_once '../db.php'; 
 session_start();
 
 header('Content-Type: application/json');
 
-// Security Check: Must be logged in
+
 if (!isset($_SESSION['user_id'])) {
     http_response_code(401);
     echo json_encode(['error' => 'Unauthorized']);
@@ -23,7 +23,7 @@ if (!$order_id || !is_numeric($order_id)) {
 
 try {
     $pdo = getPDO();
-    // Fetch only the status for the given order ID and customer ID
+
     $stmt = $pdo->prepare('SELECT status FROM orders WHERE id = ? AND customer_id = ?');
     $stmt->execute([$order_id, $user_id]);
     $order = $stmt->fetch(PDO::FETCH_ASSOC);

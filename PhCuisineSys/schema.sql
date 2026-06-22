@@ -1,10 +1,6 @@
--- schema.sql - Karinderya Mo Database Schema
--- Philippine Food Delivery System
 
 CREATE DATABASE IF NOT EXISTS `karinderya_mo` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `karinderya_mo`;
-
--- Users table (Customers, Riders, Admins, Owners)
 CREATE TABLE IF NOT EXISTS `users` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(150) NOT NULL,
@@ -20,8 +16,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   INDEX `email_idx` (`email`),
   INDEX `role_idx` (`role`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Menu items table
 CREATE TABLE IF NOT EXISTS `menu_items` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(150) NOT NULL,
@@ -36,8 +30,6 @@ CREATE TABLE IF NOT EXISTS `menu_items` (
   INDEX `category_idx` (`category`),
   INDEX `availability_idx` (`availability`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Orders table
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `order_number` VARCHAR(50) NOT NULL UNIQUE,
@@ -62,7 +54,6 @@ CREATE TABLE IF NOT EXISTS `orders` (
 ALTER TABLE orders 
 ADD COLUMN IF NOT EXISTS shipping_fee DECIMAL(10, 2) NOT NULL DEFAULT 58.00 
 AFTER total_amount;
--- Order items table
 CREATE TABLE IF NOT EXISTS `order_items` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `order_id` INT UNSIGNED NOT NULL,
@@ -74,8 +65,6 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   FOREIGN KEY (`menu_item_id`) REFERENCES `menu_items`(`id`) ON DELETE CASCADE,
   INDEX `order_idx` (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Deliveries table
 CREATE TABLE IF NOT EXISTS `deliveries` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `order_id` INT UNSIGNED NOT NULL,
@@ -105,8 +94,6 @@ DROP FOREIGN KEY deliveries_ibfk_2;
 
 ALTER TABLE deliveries 
 ADD CONSTRAINT deliveries_ibfk_2 FOREIGN KEY (rider_id) REFERENCES users(id) ON DELETE SET NULL;
-
--- Site settings table
 CREATE TABLE IF NOT EXISTS `settings` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `key_name` VARCHAR(100) NOT NULL UNIQUE,
@@ -114,8 +101,6 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Insert default menu items
 INSERT INTO `menu_items` (`name`, `category`, `price`, `image`, `description`, `availability`) VALUES
 ('Pork Adobo', 'Pork', 149.00, 'images/Pork-Adobo.jpg', 'Tender pork stewed in vinegar and soy sauce', 'available'),
 ('Pork Menudo', 'Pork', 139.00, 'images/Pork-Menudo.jpg', 'Savory pork and liver stew with vegetables', 'available'),
@@ -130,15 +115,11 @@ INSERT INTO `menu_items` (`name`, `category`, `price`, `image`, `description`, `
 ('Ginisang Ampalaya', 'Gulay / Vegetable', 89.00, 'images/Ginisang-Amplaya.jpg', 'Sautéed bitter melon with egg', 'available'),
 ('Monggo', 'Gulay / Vegetable', 99.00, 'images/Monggo-Gisado.jpg', 'Mung bean soup with pork', 'available'),
 ('Chopsuey', 'Gulay / Vegetable', 109.00, 'images/Chopsuey.jpg', 'Stir-fried mixed vegetables', 'available');
-
--- Insert default users for testing (plain text passwords, NO HASHING)
 INSERT INTO `users` (`name`, `email`, `password`, `phone`, `delivery_address`, `role`, `status`) VALUES
 ('Admin User', 'admin@karinderya.com', 'admin123', '09123456789', 'Admin Office, Manila', 'admin', 'active'),
 ('John Rider', 'rider@karinderya.com', 'rider123', '09987654321', 'Rider Base Station, Manila', 'rider', 'active'),
 ('Maria Santos', 'customer@karinderya.com', 'customer123', '09112345678', '123 Main Street, Brgy. San Isidro, Manila', 'customer', 'active'),
 ('Juan Dela Cruz', 'juan@karinderya.com', 'password123', '09555666777', '456 Oak Avenue, Brgy. Tatalon, Quezon City', 'customer', 'active');
-
--- Insert default settings
 INSERT INTO `settings` (`key_name`, `value`) VALUES
 ('site_name', 'Karinderya Mo'),
 ('site_description', 'Philippine Food Delivery System'),
@@ -146,8 +127,6 @@ INSERT INTO `settings` (`key_name`, `value`) VALUES
 ('contact_phone', '09123456789'),
 ('theme_primary_color', '#FF8B54'),
 ('theme_secondary_color', '#FF6B54');
-
--- Wallet table for customer virtual money
 CREATE TABLE IF NOT EXISTS `wallet` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT UNSIGNED NOT NULL,
@@ -158,8 +137,6 @@ CREATE TABLE IF NOT EXISTS `wallet` (
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
   UNIQUE KEY `unique_user_wallet` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Wallet transactions table to track all money movements
 CREATE TABLE IF NOT EXISTS `wallet_transactions` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT UNSIGNED NOT NULL,
@@ -176,8 +153,6 @@ CREATE TABLE IF NOT EXISTS `wallet_transactions` (
   INDEX `user_idx` (`user_id`),
   INDEX `type_idx` (`transaction_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Bank-style wallet identity with PIN-based access
 CREATE TABLE IF NOT EXISTS `bank_accounts` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT UNSIGNED NOT NULL,
@@ -196,8 +171,6 @@ CREATE TABLE IF NOT EXISTS `bank_accounts` (
   UNIQUE KEY `unique_user_bank_account` (`user_id`),
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Create wallets for existing users
 INSERT INTO `wallet` (`user_id`, `balance`) 
 SELECT `id`, 0.00 FROM `users` WHERE `role` = 'customer'
 ON DUPLICATE KEY UPDATE `balance` = `balance`;

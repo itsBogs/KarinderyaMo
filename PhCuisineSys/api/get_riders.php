@@ -1,5 +1,5 @@
 <?php
-// api/get_riders.php - Get all available riders
+
 require_once __DIR__ . '/../db.php';
 
 try {

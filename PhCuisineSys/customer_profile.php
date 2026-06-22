@@ -1,18 +1,18 @@
 <?php
-// customer_profile.php - Customer Order Tracking and Profile Management
-// Tiyakin na TAMA ang path ng db.php
+
+
 require 'db.php'; 
 
 session_start();
 require_once __DIR__ . '/includes/settings.php';
 
-// Check if user is logged in
+
 if (!isset($_SESSION['user_id'])) {
     header('Location: main/login.html');
     exit;
 }
 
-// Only customers can view their profile - redirect admin/rider/owner to their dashboards
+
 $user_role = $_SESSION['user_role'] ?? 'customer'; 
 if (in_array($user_role, ['admin', 'rider', 'owner'])) {
     if ($user_role === 'rider') {
@@ -28,12 +28,12 @@ $user_id = $_SESSION['user_id'];
 $message = '';
 $messageType = 'success';
 
-// Get customer details
+
 $userStmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
 $userStmt->execute([$user_id]);
 $customer = $userStmt->fetch();
 
-// Handle profile update
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'update_profile') {
     $name = trim($_POST['name'] ?? '');
     $phone = trim($_POST['phone'] ?? '');
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
         $updateStmt = $pdo->prepare('UPDATE users SET name = ?, phone = ?, delivery_address = ? WHERE id = ?');
         $updateStmt->execute([$name, $phone, $home_address, $user_id]);
         $message = '✅ Profile updated successfully!';
-        // Refresh customer data
+
         $userStmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
         $userStmt->execute([$user_id]);
         $customer = $userStmt->fetch();
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     }
 }
 
-// Handle update delivery address
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'update_address') {
     $order_id = $_POST['order_id'];
     $new_address = trim($_POST['delivery_address']);
@@ -68,11 +68,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     }
 }
 
-// Handle cancel order
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'cancel_order') {
     $order_id = $_POST['order_id'];
     
-    // Check if order can be cancelled (only pending orders)
+
     $checkStmt = $pdo->prepare('SELECT status FROM orders WHERE id = ? AND customer_id = ?');
     $checkStmt->execute([$order_id, $user_id]);
     $order = $checkStmt->fetch();
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
         $cancelStmt->execute([$order_id]);
         $message = '✅ Order cancelled successfully!';
     } else if ($order) {
-        // Provide specific reason based on status
+
         $statusReasons = [
             'approved' => 'The order has been approved by the restaurant and cannot be cancelled.',
             'rejected' => 'The order has been rejected by the restaurant.',
@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     }
 }
 
-// Get all orders for this customer with rider info
+
 $ordersStmt = $pdo->prepare('
     SELECT o.*, u.name as rider_name, u.phone as rider_phone
     FROM orders o
@@ -111,7 +111,7 @@ $ordersStmt = $pdo->prepare('
 $ordersStmt->execute([$user_id]);
 $orders = $ordersStmt->fetchAll();
 
-// Get order items for each order
+
 $orderDetailsMap = [];
 foreach ($orders as $order) {
     $itemsStmt = $pdo->prepare('
@@ -133,14 +133,14 @@ foreach ($orders as $order) {
     <title>My Orders — <?php echo htmlspecialchars(get_setting('site_name', 'Karinderya Mo')); ?></title>
     <link rel="stylesheet" href="css/design.css">
     <style>
-        /* ===== CONSISTENT WITH INDEX.PHP YELLOW THEME ===== */
+        
         
         .profile-container {
             width: 100%;
             padding: 0;
         }
 
-        /* Profile Header - Compact Inline Design */
+        
         .profile-header {
             background: linear-gradient(135deg, var(--accent), var(--accent-2));
             color: var(--text);
@@ -215,7 +215,7 @@ foreach ($orders as $order) {
             display: inline-block;
         }
 
-        /* CARD GRID - Responsive, Larger Cards */
+        
         .orders-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -223,7 +223,7 @@ foreach ($orders as $order) {
             width: 100%;
         }
 
-        /* Order Card - Larger & More Readable */
+        
         .order-card {
             background: var(--card);
             border: 2px solid var(--muted);
@@ -241,7 +241,7 @@ foreach ($orders as $order) {
             transform: translateY(-4px);
         }
 
-        /* Card Header - Yellow Theme */
+        
         .order-card-header {
             background: linear-gradient(135deg, var(--accent), var(--strong-accent));
             color: var(--text);
@@ -278,7 +278,7 @@ foreach ($orders as $order) {
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
-        /* Card Body - Spacious */
+        
         .order-card-body {
             padding: 20px;
             flex: 1;
@@ -294,7 +294,7 @@ foreach ($orders as $order) {
             gap: 8px;
         }
 
-        /* Order Items - Vertical List, Larger */
+        
         .order-items {
             display: flex;
             flex-direction: column;
@@ -362,7 +362,7 @@ foreach ($orders as $order) {
             font-weight: 500;
         }
 
-        /* Total Section - Prominent */
+        
         .order-total-price {
             display: flex;
             justify-content: space-between;
@@ -386,7 +386,7 @@ foreach ($orders as $order) {
             color: var(--strong-accent);
         }
 
-        /* Rider Info */
+        
         .delivery-info-badge {
             background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
             border: 2px solid #81c784;
@@ -416,7 +416,7 @@ foreach ($orders as $order) {
             color: var(--strong-accent);
         }
 
-        /* Card Footer */
+        
         .order-card-footer {
             padding: 15px 20px;
             display: flex;
@@ -485,7 +485,7 @@ foreach ($orders as $order) {
             width: 100%;
         }
 
-        /* Modal Styles - Yellow Theme */
+        
         .modal {
             display: none;
             position: fixed;
@@ -622,7 +622,7 @@ foreach ($orders as $order) {
             box-shadow: 0 4px 12px rgba(233, 162, 9, 0.4);
         }
 
-        /* Status Tracker - Yellow Theme */
+        
         .status-tracker {
             display: flex;
             justify-content: space-between;
@@ -692,7 +692,7 @@ foreach ($orders as $order) {
             font-weight: 700;
         }
 
-        /* Message - Yellow Theme */
+        
         .message {
             padding: 15px 18px;
             margin-bottom: 20px;
@@ -728,7 +728,7 @@ foreach ($orders as $order) {
             font-weight: 700;
         }
 
-        /* RESPONSIVE */
+        
         @media (max-width: 900px) {
             .orders-grid {
                 grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -766,7 +766,7 @@ foreach ($orders as $order) {
             }
         }
 
-        /* Toast Animation */
+        
         @keyframes slideIn {
             from {
                 transform: translateX(100%);
@@ -808,7 +808,7 @@ foreach ($orders as $order) {
 
         <main>
             <div class="profile-container">
-                <!-- Profile Header - Compact Inline -->
+                
                 <div class="profile-header">
                     <div class="profile-info" 
                              data-name="<?php echo htmlspecialchars($customer['name']); ?>"
@@ -837,7 +837,7 @@ foreach ($orders as $order) {
                             <p>No orders yet. <a href="index.php">Start ordering now!</a></p>
                         </div>
                     <?php else: ?>
-                        <!-- Card Grid Layout -->
+                        
                         <div class="orders-grid" id="ordersGrid">
                             <?php foreach ($orders as $order): 
                                 $status = $order['status'];
@@ -1028,10 +1028,10 @@ foreach ($orders as $order) {
     </div>
 
     <script>
-        // Variable to hold the auto-refresh interval
+
         let trackRefreshInterval;
 
-        // --- Live Orders Rendering & Polling ---
+
         const ordersGrid = document.getElementById('ordersGrid');
         const statusTextMap = {
             'pending': 'Pending',
@@ -1126,22 +1126,22 @@ foreach ($orders as $order) {
                 .catch(() => {});
         }
 
-        // Initial load + polling every 5s
+
         pollOrders();
         setInterval(pollOrders, 1000);
 
         function getStatusIndex(status) {
-            // Ito ang mapping ng database status sa step number sa tracker
+
             const statusMap = {
-                'pending': 0, // Order Placed
-                'approved': 1, // Preparation (Approved/Preparing/Accepted are considered Step 1)
+                'pending': 0, 
+                'approved': 1, 
                 'preparing': 1, 
                 'in_progress': 1, 
                 'accepted': 1, 
-                'out_for_delivery': 2, // Out for Delivery
+                'out_for_delivery': 2, 
                 'on_the_way': 2, 
-                'delivered': 3, // Delivered
-                'cancelled': 3 // Treat cancelled as final step
+                'delivered': 3, 
+                'cancelled': 3 
             };
             return statusMap[status] !== undefined ? statusMap[status] : -1;
         }
@@ -1149,7 +1149,7 @@ foreach ($orders as $order) {
         function generateTracker(currentStatus, proofUrl = '') {
             const currentStepIndex = getStatusIndex(currentStatus);
             
-            // Generate status tracker HTML (final step flips to Cancelled styling when needed)
+
             const isCancelled = currentStatus === 'cancelled' || currentStatus === 'rejected';
             const finalLabel = isCancelled ? 'Cancelled' : 'Delivered';
             const finalIcon = isCancelled ? '❌' : '✅';
@@ -1192,7 +1192,7 @@ foreach ($orders as $order) {
 
             trackerHTML += `<p style="text-align: center; color: #222; margin-top: 16px; font-size: 15px; font-weight: 700; letter-spacing: 0.2px;">${message}</p>`;
             
-            // Proof of delivery image (when available) — show whenever proof exists
+
             if (proofUrl) {
                 trackerHTML += `
                     <div style="margin-top: 14px; text-align:center;">
@@ -1202,31 +1202,31 @@ foreach ($orders as $order) {
                 `;
             }
             
-            // Add a last updated timestamp for better UX
+
             trackerHTML += `<p style="text-align: center; color: #555; margin-top: 10px; font-size: 12px; font-weight: 700;">Last updated: ${new Date().toLocaleTimeString()}</p>`;
             
             return trackerHTML;
         }
 
-        /**
-         * Fetches the latest status from the API and updates the modal UI.
-         * @param {string} orderId The ID of the order to track.
-         */
+
+
+
+
         function updateTrackModal(orderId) {
             const modalBody = document.getElementById('trackModalBody');
             
-            // Display loading state while fetching
-            // Use existing content if already loaded to avoid flicker, or loading message if first time
+
+
             if (modalBody.innerHTML.indexOf('status-tracker') === -1) {
                 modalBody.innerHTML = '<p style="text-align: center; color: #666;">Fetching latest status... <span style="font-size: 18px;">🔄</span></p>';
             }
 
-            // Fetch the latest status from the API endpoint
-            // Tiyakin na TAMA ang path: api/get_order_status.php
+
+
             fetch(`api/get_order_status.php?order_id=${orderId}`) 
                 .then(response => {
                     if (!response.ok) {
-                        // Throw an error if the HTTP status is not 200-299
+
                         return response.json().then(data => { throw new Error(data.error || 'Failed to fetch status'); });
                     }
                     return response.json();
@@ -1234,59 +1234,59 @@ foreach ($orders as $order) {
                 .then(data => {
                     const latestStatus = data.status;
                     const proofUrl = data.proof_url || '';
-                    // Regenerate the tracker UI with the latest status
+
                     modalBody.innerHTML = generateTracker(latestStatus, proofUrl);
-                    // Update the modal title to show the current status briefly
+
                     document.querySelector('#trackModal h2').textContent = `📍 Track Order (Status: ${latestStatus.replace(/_/g, ' ').toUpperCase()})`;
                 })
                 .catch(error => {
                     console.error('Error fetching status:', error);
-                    // Display error message to the user
+
                     modalBody.innerHTML = `<p style="text-align: center; color: red;">❌ Failed to load status. Please ensure **api/get_order_status.php** is correctly set up.</p>`;
-                    // Stop refreshing on error
+
                     closeTrackModal(); 
                 });
         }
 
-        /**
-         * Opens the tracking modal and sets up the auto-refresh interval.
-         * @param {string} orderId The ID of the order to track.
-         */
+
+
+
+
         function showTrackModal(orderId) {
             const modal = document.getElementById('trackModal');
             
-            // 1. Clear any existing interval first
+
             if (trackRefreshInterval) {
                 clearInterval(trackRefreshInterval);
             }
             
-            // 2. Load the initial status immediately
+
             updateTrackModal(orderId);
             
-            // 3. Set up auto-refresh (every 1 second)
+
             trackRefreshInterval = setInterval(() => {
                 updateTrackModal(orderId);
             }, 1000); 
             
-            // 4. Show the modal
+
             modal.classList.add('active');
         }
 
-        /**
-         * Closes the tracking modal and stops the auto-refresh interval.
-         */
+
+
+
         function closeTrackModal() {
-            // Stop the auto-refresh when modal is closed
+
             if (trackRefreshInterval) {
                 clearInterval(trackRefreshInterval);
                 trackRefreshInterval = null;
             }
             document.getElementById('trackModal').classList.remove('active');
-            // Reset modal title
+
             document.querySelector('#trackModal h2').textContent = `📍 Track Your Order`;
         }
 
-        // --- Edit Address Modal ---
+
 
         document.getElementById('editForm').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -1305,7 +1305,7 @@ foreach ($orders as $order) {
             .then(data => {
                 if (data.success) {
                     showToast('✅ ' + data.message, 'success');
-                    // If we display address somewhere per order, update here.
+
                 } else {
                     showToast('❌ ' + (data.message || 'Failed to update address'), 'error');
                 }
@@ -1331,7 +1331,7 @@ foreach ($orders as $order) {
             document.getElementById('editModal').classList.remove('active');
         }
         
-        // --- Edit Profile Modal ---
+
 
         document.getElementById('profileForm').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -1339,11 +1339,11 @@ foreach ($orders as $order) {
             const formData = new FormData(form);
             const submitBtn = form.querySelector('button[type="submit"]');
             
-            // Disable button while saving
+
             submitBtn.disabled = true;
             submitBtn.textContent = 'Saving...';
             
-            // Use AJAX API endpoint to update profile AND session
+
             fetch('api/update_profile.php', {
                 method: 'POST',
                 body: formData
@@ -1351,19 +1351,19 @@ foreach ($orders as $order) {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Update the profile info display
+
                     const newName = data.data.name;
                     const newPhone = data.data.phone;
                     const newAddress = data.data.address;
                     
                     const profileInfo = document.querySelector('.profile-info');
                     
-                    // Update data attributes
+
                     profileInfo.dataset.name = newName;
                     profileInfo.dataset.phone = newPhone;
                     profileInfo.dataset.address = newAddress;
                     
-                    // Update visible text
+
                     profileInfo.querySelector('h2').textContent = newName;
                     const spans = profileInfo.querySelectorAll('.profile-details span');
                     if (spans[1]) spans[1].innerHTML = '📱 ' + (newPhone || 'N/A');
@@ -1374,7 +1374,7 @@ foreach ($orders as $order) {
                     
                     closeProfileModal();
                     
-                    // Show success message
+
                     showToast('✅ ' + data.message, 'success');
                 } else {
                     showToast('❌ ' + data.message, 'error');
@@ -1393,7 +1393,7 @@ foreach ($orders as $order) {
         function showEditProfileModal() {
             const profileInfo = document.querySelector('.profile-info');
             
-            // Get values from data attributes (more reliable)
+
             const nameText = profileInfo.dataset.name || '';
             const phoneText = profileInfo.dataset.phone || '';
             const addressText = profileInfo.dataset.address || '';
@@ -1408,9 +1408,9 @@ foreach ($orders as $order) {
             document.getElementById('profileModal').classList.remove('active');
         }
         
-        // Toast notification helper
+
         function showToast(message, type = 'info') {
-            // Remove existing toast if any
+
             const existingToast = document.querySelector('.toast-notification');
             if (existingToast) existingToast.remove();
             
@@ -1433,14 +1433,14 @@ foreach ($orders as $order) {
             toast.textContent = message;
             document.body.appendChild(toast);
             
-            // Auto remove after 3 seconds
+
             setTimeout(() => {
                 toast.style.animation = 'slideOut 0.3s ease';
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
 
-        // --- Cancel Order Modal ---
+
 
         function showCancelModal(orderId, orderNum) {
             document.getElementById('cancelOrderId').value = orderId;
@@ -1452,7 +1452,7 @@ foreach ($orders as $order) {
             document.getElementById('cancelModal').classList.remove('active');
         }
 
-        // Cancel form submit via AJAX
+
         document.getElementById('cancelForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const form = e.target;
@@ -1469,7 +1469,7 @@ foreach ($orders as $order) {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    // Update card UI
+
                     const card = document.querySelector(`.order-card[data-order-id="${orderId}"]`);
                     if (card) {
                         const badge = card.querySelector('.order-status-badge');
@@ -1493,11 +1493,11 @@ foreach ($orders as $order) {
             });
         });
 
-        // Close modal when clicking outside
+
         window.addEventListener('click', function(event) {
             const trackModal = document.getElementById('trackModal');
             if (event.target === trackModal) {
-                closeTrackModal(); // Now clears the interval
+                closeTrackModal(); 
             }
             
             const editModal = document.getElementById('editModal');

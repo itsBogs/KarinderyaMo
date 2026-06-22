@@ -1,6 +1,6 @@
 <?php
-// control/get_payment_info.php
-// Fetches payment settings for the checkout page.
+
+
 
 header('Content-Type: application/json');
 require_once __DIR__ . '/../db.php';
@@ -15,7 +15,7 @@ try {
     $stmt->execute($keys);
     $settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
 
-    // Ensure all keys exist to avoid undefined index errors on the frontend
+
     $response = [];
     foreach ($keys as $key) {
         $response[$key] = $settings[$key] ?? '';

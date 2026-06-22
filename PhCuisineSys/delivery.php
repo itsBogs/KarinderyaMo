@@ -1,10 +1,10 @@
 <?php
-// delivery.php - Manage deliveries and assign riders
+
 require_once __DIR__ . '/db.php';
 
 session_start();
 
-// Handle rider assignment
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     header('Content-Type: application/json');
     $action = $_POST['action'];
@@ -15,10 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $pdo = getPDO();
         
         if (($action === 'assign' || $action === 'assign_rider') && $order_id && $rider_id) {
-            // Start transaction
+
             $pdo->beginTransaction();
             
-            // Create/update delivery record
+
             $stmt = $pdo->prepare('
                 INSERT INTO deliveries (order_id, rider_id, status, created_at)
                 VALUES (?, ?, "assigned", NOW())
@@ -26,11 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             ');
             $stmt->execute([$order_id, $rider_id, $rider_id]);
             
-            // Update order status to preparing (waiting for rider to accept)
+
             $updateStmt = $pdo->prepare('UPDATE orders SET status = "preparing", rider_id = ? WHERE id = ?');
             $updateStmt->execute([$rider_id, $order_id]);
             
-            // Commit transaction
+
             $pdo->commit();
             
             echo json_encode(['success' => true, 'message' => 'Rider assigned successfully']);
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 try {
     $pdo = getPDO();
     
-    // Get approved orders ready for rider assignment (not yet assigned)
+
     $stmt = $pdo->query('
         SELECT o.id, o.order_number, u.name as customer_name, o.total_amount, o.delivery_address, 
                o.status, o.created_at, o.rider_id, r.name as rider_name
@@ -62,7 +62,7 @@ try {
     ');
     $deliveries = $stmt->fetchAll();
     
-    // Get all riders
+
     $riderStmt = $pdo->query('SELECT id, name FROM users WHERE role = "rider" ORDER BY name');
     $riders = $riderStmt->fetchAll();
 } catch (Exception $e) {
@@ -126,8 +126,8 @@ try {
 </div>
 
 <script>
-// This script is for when delivery.php is accessed directly (not via admin dashboard)
-// When loaded via AJAX in admin_dashboard.php, the global assignRider function there is used instead
+
+
 if (typeof assignRider === 'undefined') {
     function assignRider(orderId, buttonElement) {
         const select = document.getElementById('rider_' + orderId);

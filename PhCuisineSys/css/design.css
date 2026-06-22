@@ -1,25 +1,25 @@
 @import url('../theme.php');
 
 :root{
-  /* Backgrounds & Neutrals - driven by site settings */
+  
   --bg: var(--theme-bg, #fff9ea);
   --muted: var(--theme-muted, #ffe8b4);
   --card: #fff;
   
-  /* Accents - driven by site settings */
+  
   --accent: var(--theme-primary, #ffcb45);
   --accent-2: var(--theme-secondary, #f8d477);
   --strong-accent: var(--theme-strong, #e9a209);
   
-  /* Typography & Layout */
+  
   --text: var(--theme-text, #1d1d1d);
   --radius: 12px;
 }
 
-/* General */
+
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif; /* Changed font to Poppins */
+  font-family: 'Poppins', sans-serif; 
   background-color: var(--bg);
   color: var(--text);
 }
@@ -30,15 +30,15 @@ body {
   min-height: 100vh;
 }
 
-/* Header - INCREASED PADDING FOR MORE SPACE */
+
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* Use a subtle gradient with the new primary colors */
+  
   background: linear-gradient(90deg, var(--accent), var(--accent-2)); 
-  color: var(--text); /* Changed text color to be dark for better contrast on light yellow */
-  padding: 16px 32px; /* Dito dinagdagan ang space */
+  color: var(--text); 
+  padding: 16px 32px; 
   position: sticky;
   top: 0;
   z-index: 100;
@@ -52,7 +52,7 @@ header .brand {
 }
 
 header .brand .logo {
-  background-color: var(--strong-accent); /* Darker accent for logo background */
+  background-color: var(--strong-accent); 
   width: 50px;
   height: 50px;
   border-radius: 12px;
@@ -61,7 +61,7 @@ header .brand .logo {
   justify-content: center;
   font-weight: 700;
   font-size: 18px;
-  color: var(--card); /* White text on dark accent */
+  color: var(--card); 
 }
 
 header h1 {
@@ -72,7 +72,7 @@ header h1 {
 header p.lead {
   margin: 0;
   font-size: 12px;
-  opacity: 0.8; /* Adjusted opacity for legibility */
+  opacity: 0.8; 
 }
 
 header .actions {
@@ -90,7 +90,7 @@ header input.search {
   color: var(--text);
 }
 
-/* Main layout - Removed width restriction */
+
 main {
   display: flex;
   flex: 1;
@@ -98,7 +98,7 @@ main {
   padding: 24px;
 }
 
-/* Category section styles */
+
 .category-section {
   width: 100%;
   margin-bottom: 20px;
@@ -109,11 +109,11 @@ main {
   font-weight: 700;
   margin: 0 0 12px 0;
   padding-bottom: 6px;
-  border-bottom: 3px solid var(--strong-accent); /* Used strong accent */
+  border-bottom: 3px solid var(--strong-accent); 
   display: inline-block;
 }
 
-/* --- PRODUCT CARD STYLES --- */
+
 .card {
   background-color: var(--card);
   border-radius: var(--radius);
@@ -124,7 +124,7 @@ main {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: transform 0.2s, box-shadow 0.2s;
   overflow: hidden;
-  height: 100%; /* Siguraduhin na pare-pareho ang taas sa grid */
+  height: 100%; 
 }
 
 .card:hover {
@@ -196,12 +196,12 @@ main {
   padding: 10px 12px;
   white-space: nowrap;
 }
-/* --- END PRODUCT CARD STYLES --- */
 
-/* Button Styles */
+
+
 .btn {
   background-color: var(--accent); 
-  color: var(--text); /* Changed text color to dark for better contrast */
+  color: var(--text); 
   border: none;
   padding: 10px 18px; 
   border-radius: 8px; 
@@ -225,31 +225,31 @@ main {
 }
 
 .btn.buy-now {
-    background-color: var(--strong-accent); /* Used the strong accent color */
-    color: var(--card); /* White text on strong accent */
+    background-color: var(--strong-accent); 
+    color: var(--card); 
 }
 
 .btn.buy-now:hover {
-    background-color: #c48c07; /* A darker shade for hover effect */
+    background-color: #c48c07; 
 }
 
 .icon-btn {
-  background-color: var(--strong-accent); /* Used strong accent */
+  background-color: var(--strong-accent); 
   border: 1px solid var(--card); 
   border-radius: 8px;
   padding: 8px 10px;
   cursor: pointer;
-  color: var(--card); /* White text */
+  color: var(--card); 
   font-weight: 600;
   text-decoration: none; 
   transition: background 0.2s;
 }
 
 .icon-btn:hover {
-  background-color: #c48c07; /* Darker shade */
+  background-color: #c48c07; 
 }
 
-/* Footer */
+
 footer {
   text-align: center;
   padding: 12px;
@@ -258,7 +258,7 @@ footer {
   background-color: var(--muted);
 }
 
-/* Page title section */
+
 .page-title {
   text-align: center;
   padding: 24px 12px;
@@ -266,7 +266,7 @@ footer {
 }
 
 .page-title h2 {
-  font-family: 'Poppins', sans-serif; /* Changed font to Poppins */
+  font-family: 'Poppins', sans-serif; 
   font-size: 32px;
   font-weight: 700;
   margin: 0 0 8px 0;
@@ -278,10 +278,10 @@ footer {
   margin: 0;
 }
 
-/* Section title */
+
 .products-section {
-  margin: 0 auto; /* Alisin ang top/bottom margin at ibigay sa container */
-  width: 100%; /* Full width */
+  margin: 0 auto; 
+  width: 100%; 
   padding: 0 12px;
 }
 
@@ -289,45 +289,45 @@ footer {
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 12px;
-  border-bottom: 2px solid var(--strong-accent); /* Used strong accent */
+  border-bottom: 2px solid var(--strong-accent); 
   display: inline-block;
   padding-bottom: 4px;
 }
 
-/* Horizontal scroll for cards - REMOVED/DEPRECATED */
-/* .menu.horizontal { ... } */
-/* .menu.horizontal::-webkit-scrollbar { ... } */
-/* .menu.horizontal::-webkit-scrollbar-thumb { ... } */
-/* .menu.horizontal .card { ... } */
 
-/* NEW GRID LAYOUT for Products - Maximize area and minimize dead spots */
+
+
+
+
+
+
 .menu.grid {
   display: grid;
-  /* Auto-fit: Awtomatikong mag-a-adjust ang columns para punuin ang space. */
-  /* Minmax(280px, 1fr): Ang bawat card ay minimum na 280px ang lapad. */
+  
+  
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
   gap: 20px; 
   padding: 0;
-  /* Ang cards ay magiging flex, hindi na fixed size */
+  
 }
 
 .menu.grid .card {
-    /* Ang height ay pwede na lang mag-adjust based sa content */
+    
     height: auto; 
 }
 
 
-/* Flex container for sections - Adjusted padding */
+
 .products-container {
   display: flex;
   flex-direction: column; 
-  gap: 40px; /* Dagdag space sa pagitan ng sections */
-  padding: 24px; /* Uniform padding sa paligid ng content */
+  gap: 40px; 
+  padding: 24px; 
 }
 
-/* ======================================= */
-/* ====== CART PAGE LAYOUT STYLES (New Two-Column) ====== */
-/* ======================================= */
+
+
+
 
 .cart-main {
   width: min(1320px, 100%);
@@ -343,7 +343,7 @@ footer {
   align-items: flex-start;
 }
 
-/* LEFT COLUMN: Cart Details */
+
 .cart-details-col {
   display: flex;
   flex-direction: column;
@@ -432,7 +432,7 @@ footer {
   width: 32px;
   height: 32px;
   border: none;
-  background-color: var(--strong-accent); /* Used strong accent */
+  background-color: var(--strong-accent); 
   color: #fff;
   font-weight: 700;
   border-radius: 4px;
@@ -443,7 +443,7 @@ footer {
 }
 
 .cart-item .qty button:hover {
-  background-color: #c48c07; /* Darker shade */
+  background-color: #c48c07; 
 }
 
 .cart-item .qty div {
@@ -459,7 +459,7 @@ footer {
   font-size: 16px;
 }
 
-/* Total section */
+
 .total-summary {
   margin-top: 10px;
   padding-top: 10px;
@@ -473,7 +473,7 @@ footer {
   padding: 14px 18px;
   background-color: var(--muted);
   border-radius: var(--radius);
-  color: var(--strong-accent); /* Used strong accent */
+  color: var(--strong-accent); 
 }
 
 .cart-actions-bottom {
@@ -482,7 +482,7 @@ footer {
   margin-top: 10px;
 }
 
-/* RIGHT COLUMN: Checkout Form */
+
 .checkout-form-col {
   background-color: var(--card);
   border-radius: var(--radius);
@@ -492,7 +492,7 @@ footer {
 }
 
 .checkout-form-col h3 {
-  color: var(--strong-accent); /* Used strong accent */
+  color: var(--strong-accent); 
   border-bottom: 2px solid var(--muted);
   padding-bottom: 8px;
   margin-top: 0;
@@ -534,22 +534,22 @@ footer {
 }
 
 
-/* Responsive Cart Layout */
+
 @media (max-width: 900px) {
   .cart-container {
     grid-template-columns: 1fr; 
   }
 }
 
-/* RESPONSIVE LAYOUT FOR MAIN PAGE */
+
 @media (max-width: 768px) {
     header {
-        padding: 10px 15px; /* Mas maliit na padding sa mobile */
-        flex-wrap: wrap; /* Para mag-wrap ang elements */
+        padding: 10px 15px; 
+        flex-wrap: wrap; 
     }
 
     header .actions {
-        order: 10; /* Ilagay sa baba ng brand */
+        order: 10; 
         width: 100%;
         margin-top: 10px;
         justify-content: space-between;
@@ -570,14 +570,14 @@ footer {
     }
 }
 
-/* QR Code Image Sizing */
+
 #qr-image {
   max-width: 340px !important;
     width: 100% !important;
     height: auto;
 }
 
-/* Floating animation wrapper for product contents (global) */
+
 @keyframes floaty {
   0% { transform: translateY(0) translateX(0); }
   25% { transform: translateY(-6px) translateX(-2px); }
